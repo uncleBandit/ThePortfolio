@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peter Mwania Mwendwa // The Digital Architect</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+        
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background-color: #0d0d0d;
+            color: #d1d5db;
+            overflow-x: hidden;
+        }
+        .card-glass {
+            background-color: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .text-neon {
+            color: #0ef0f0;
+        }
+        .border-neon {
+            border-color: #0ef0f0;
+        }
+        .hover-neon:hover {
+            color: #0ef0f0;
+        }
+        
+        /* Hero text glitch effect */
+        .glitch {
+            position: relative;
+            text-shadow: 0 0 10px #0ef0f0, 0 0 20px #0ef0f0, 0 0 30px #0ef0f0;
+            animation: none; /* Removed initial pulse */
+        }
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0d0d0d;
+            overflow: hidden;
+            z-index: -1;
+        }
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #ff00c1;
+            animation: glitch-anim 2s infinite linear alternate-reverse;
+        }
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
+            animation: glitch-anim2 2s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip-path: inset(30% 0 30% 0); }
+            20% { clip-path: inset(80% 0 1% 0); }
+            40% { clip-path: inset(10% 0 70% 0); }
+            60% { clip-path: inset(50% 0 20% 0); }
+            80% { clip-path: inset(70% 0 10% 0); }
+            100% { clip-path: inset(20% 0 60% 0); }
+        }
+        @keyframes glitch-anim2 {
+            0% { clip-path: inset(60% 0 20% 0); }
+            20% { clip-path: inset(1% 0 80% 0); }
+            40% { clip-path: inset(70% 0 10% 0); }
+            60% { clip-path: inset(20% 0 50% 0); }
+            80% { clip-path: inset(10% 0 70% 0); }
+            100% { clip-path: inset(30% 0 30% 0); }
+        }
+
+        .profile-photo {
+            border-radius: 50%;
+            border: 3px solid #0ef0f0;
+            box-shadow: 0 0 15px #0ef0f0, 0 0 25px rgba(14, 240, 240, 0.5);
+            transition: transform 0.3s ease-in-out;
+        }
+        .profile-photo:hover {
+            transform: scale(1.05);
+        }
+
+        /* Typing cursor animation */
+        .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2em;
+            background-color: #0ef0f0;
+            margin-left: 2px;
+            animation: blink 1s infinite;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@1.41.0/tsparticles.min.js"></script>
+</head>
+
+<body class="bg-gray-950 text-gray-300 antialiased overflow-x-hidden">
+
+    <div id="tsparticles" style="position: fixed; inset: 0; z-index: 0;"></div>
+
+    <header class="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-60 backdrop-filter backdrop-blur-lg">
+        <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold text-neon hover:text-white transition duration-300">PETER.MWANIA</a>
+            <div class="hidden md:flex space-x-6 text-sm font-medium">
+                <a href="#profile" class="hover-neon transition duration-300">_PROFILE</a>
+                <a href="#services" class="hover-neon transition duration-300">_SERVICES</a>
+                <a href="#projects" class="hover-neon transition duration-300">_PROJECTS</a>
+                <a href="#skills" class="hover-neon transition duration-300">_SKILLS</a>
+                <a href="#contact" class="hover-neon transition duration-300">_CONTACT</a>
+            </div>
+            <button class="md:hidden text-gray-400 p-2 rounded-md hover:text-neon transition duration-300">
+                <i class="ri-menu-line text-2xl"></i>
+            </button>
+        </nav>
+    </header>
+
+    <section class="h-screen relative flex flex-col justify-center items-center text-center p-6 z-10">
+        <div class="relative z-10">
+            <h1 class="text-6xl md:text-8xl font-extrabold mb-4 text-white glitch" data-text="PETER MWANIA">PETER MWANIA</h1>
+            <p class="text-xl md:text-2xl mb-8 text-gray-400">TECHNOLOGY ARCHITECT | FULL-STACK ENGINEER | FINTECH SPECIALIST</p>
+            <a href="#profile" class="relative px-8 py-4 text-neon font-semibold rounded-full shadow-lg transition-transform transform hover:scale-105 duration-300 backdrop-blur-sm bg-white/5 border border-white/20 hover:border-neon group">
+    <span class="relative z-10">INITIATE PROFILE READ_</span>
+    <span class="absolute inset-0 rounded-full bg-neon opacity-0 transition-opacity duration-300 group-hover:opacity-20 animate-pulse"></span>
+</a>
+        </div>
+    </section>
+
+    <section id="profile" class="max-w-6xl mx-auto px-6 py-20 z-10 relative">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
+            <div class="md:col-span-1 flex justify-center items-center">
+                <img src="assets/IMG_6393.jpg" alt="Peter Mwania Mwendwa" class="profile-photo w-64 h-64 object-cover">
+            </div>
+            <div class="md:col-span-2 card-glass p-8 rounded-xl">
+                <h2 class="text-3xl font-bold mb-6 text-neon text-center md:text-left">>>> A DIGITAL MANIFESTO</h2>
+                <div id="manifesto-text" class="text-gray-400 leading-relaxed text-sm md:text-base"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="max-w-6xl mx-auto px-6 py-20 z-10 relative">
+        <h2 class="text-3xl font-bold mb-12 text-center text-neon">>>> WHAT I DO</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="card-glass rounded-xl shadow-lg p-8 transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:border-neon">
+                <div class="text-4xl text-neon mb-4"><i class="ri-code-s-slash-line"></i></div>
+                <h3 class="text-2xl font-bold mb-2">FULL-STACK SYNTHESIS</h3>
+                <p class="text-gray-400">Crafting end-to-end digital experiences from the core database to the user interface, specializing in complex web applications.</p>
+            </div>
+            <div class="card-glass rounded-xl shadow-lg p-8 transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:border-neon">
+                <div class="text-4xl text-neon mb-4"><i class="ri-smartphone-line"></i></div>
+                <h3 class="text-2xl font-bold mb-2">MOBILE ENGINEERING</h3>
+                <p class="text-gray-400">Engineering high-performance mobile applications with a focus on cross-platform efficiency and native functionality.</p>
+            </div>
+            <div class="card-glass rounded-xl shadow-lg p-8 transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:border-neon">
+                <div class="text-4xl text-neon mb-4"><i class="ri-bank-card-line"></i></div>
+                <h3 class="text-2xl font-bold mb-2">FINANCIAL SYSTEMS</h3>
+                <p class="text-gray-400">Developing secure, scalable financial systems and integrating with global payment gateways and modern fintech protocols.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="bg-gray-950 py-20 z-10 relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-3xl font-bold mb-12 text-center text-neon">>>> DIGITAL ARTIFACTS</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10">
+                <div class="card-glass rounded-xl shadow-lg p-8 flex flex-col justify-between transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:border-neon">
+                    <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-xl font-bold text-neon">PlumRum</h3>
+                        <span class="bg-green-900 text-green-200 text-xs font-semibold px-2 py-1 rounded-full border border-green-800">Live</span>
+                     </div>
+                     <p class="text-gray-400 mb-4 leading-relaxed">A scalable eCommerce system with real-time analytics and multiple payment integrations, including M-Pesa, Stripe, and PayPal.</p>
+                    </div>
+                    <div class="mt-4">
+                <div class="flex items-center space-x-4 mb-4">
+                    <a href="https://livedemo-link.com" target="_blank" class="flex items-center space-x-1 text-white hover-neon transition duration-300 text-sm">
+                <i class="ri-play-circle-line text-lg"></i>
+                <span>Live Demo</span>
+                </a>
+                    <a href="https://github.com/uncleBandit/PlumRum" target="_blank" class="flex items-center space-x-1 text-white hover-neon transition duration-300 text-sm">
+                    <i class="ri-github-fill text-lg"></i>
+                    <span>Codebase</span>
+                    </a>
+                    </div>
+                    <p class="text-xs font-semibold text-gray-500">_TECH STACK //</p>
+                         <ul class="flex flex-wrap gap-2 mt-1">
+                        <li class="bg-blue-900 text-blue-200 px-3 py-1 rounded-full text-xs">Laravel</li>
+                        <li class="bg-green-900 text-green-200 px-3 py-1 rounded-full text-xs">Vue.js</li>
+                        <li class="bg-indigo-900 text-indigo-200 px-3 py-1 rounded-full text-xs">Inertia.js</li>
+                         <li class="bg-teal-900 text-teal-200 px-3 py-1 rounded-full text-xs">Tailwind CSS</li>
+                    </ul>
+                 </div>
+                </div>
+                <div class="card-glass rounded-xl shadow-lg p-8 flex flex-col justify-between transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:border-neon">
+    <div>
+        <div class="flex justify-between items-center mb-2">
+            <h3 class="text-xl font-bold text-neon">GymBro</h3>
+            <span class="bg-yellow-900 text-yellow-200 text-xs font-semibold px-2 py-1 rounded-full border border-yellow-800">In Dev</span>
+        </div>
+        <p class="text-gray-400 mb-4 leading-relaxed">A cross-platform fitness tracker analyzing biometrics with real-time feedback and intelligent zone tracking.</p>
+    </div>
+    <div class="mt-4">
+        <div class="flex items-center space-x-4 mb-4">
+            <a href="https://livedemo-link.com" target="_blank" class="flex items-center space-x-1 text-white hover-neon transition duration-300 text-sm">
+                <i class="ri-play-circle-line text-lg"></i>
+                <span>Live Demo</span>
+            </a>
+            <a href="https://github.com/uncleBandit/GymBro" target="_blank" class="flex items-center space-x-1 text-white hover-neon transition duration-300 text-sm">
+                <i class="ri-github-fill text-lg"></i>
+                <span>Codebase</span>
+            </a>
+        </div>
+        <p class="text-xs font-semibold text-gray-500">_TECH STACK //</p>
+        <ul class="flex flex-wrap gap-2 mt-1">
+            <li class="bg-orange-900 text-orange-200 px-3 py-1 rounded-full text-xs">Kotlin Multiplatform</li>
+            <li class="bg-purple-900 text-purple-200 px-3 py-1 rounded-full text-xs">Jetpack Compose</li>
+            <li class="bg-yellow-900 text-yellow-200 px-3 py-1 rounded-full text-xs">Firebase</li>
+        </ul>
+    </div>
+</div>
+
+
+                <div class="card-glass rounded-xl shadow-lg p-8 flex flex-col justify-between transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:border-neon">
+    <div>
+        <div class="flex justify-between items-center mb-2">
+            <h3 class="text-xl font-bold text-neon">OPENPROJECT EXTENSION</h3>
+            <span class="bg-green-900 text-green-200 text-xs font-semibold px-2 py-1 rounded-full border border-green-800">Live</span>
+        </div>
+        <p class="text-gray-400 mb-4 leading-relaxed">Engineered and deployed a custom plugin to enhance project management functionality within Dockerized environments.</p>
+    </div>
+    <div class="mt-4">
+        <div class="flex items-center space-x-4 mb-4">
+            <a href="https://livedemo-link.com" target="_blank" class="flex items-center space-x-1 text-white hover-neon transition duration-300 text-sm">
+                <i class="ri-play-circle-line text-lg"></i>
+                <span>Live Demo</span>
+            </a>
+            <a href="https://github.com/uncleBandit/ThePlugin" target="_blank" class="flex items-center space-x-1 text-white hover-neon transition duration-300 text-sm">
+                <i class="ri-github-fill text-lg"></i>
+                <span>Codebase</span>
+            </a>
+        </div>
+        <p class="text-xs font-semibold text-gray-500">_TECH STACK //</p>
+        <ul class="flex flex-wrap gap-2 mt-1">
+            <li class="bg-red-900 text-red-200 px-3 py-1 rounded-full text-xs">Ruby</li>
+            <li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-xs">Docker</li>
+            <li class="bg-blue-900 text-blue-200 px-3 py-1 rounded-full text-xs">OpenProject API</li>
+        </ul>
+    </div>
+</div>
+
+
+                <div class="card-glass rounded-xl shadow-lg p-8 flex flex-col justify-between transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:border-neon">
+    <div>
+        <div class="flex justify-between items-center mb-2">
+            <h3 class="text-xl font-bold text-neon">FASTAPI LLM ASSISTANT</h3>
+            <span class="bg-green-900 text-green-200 text-xs font-semibold px-2 py-1 rounded-full border border-green-800">Live</span>
+        </div>
+        <p class="text-gray-400 mb-4 leading-relaxed">A lightweight, conversational AI assistant built using FastAPI, enabling natural language queries with secure API handling.</p>
+    </div>
+    <div class="mt-4">
+        <div class="flex items-center space-x-4 mb-4">
+            <a href="https://livedemo-link.com" target="_blank" class="flex items-center space-x-1 text-white hover-neon transition duration-300 text-sm">
+                <i class="ri-play-circle-line text-lg"></i>
+                <span>Live Demo</span>
+            </a>
+            <a href="https://github.com/uncleBandit/The-LLM-" target="_blank" class="flex items-center space-x-1 text-white hover-neon transition duration-300 text-sm">
+                <i class="ri-github-fill text-lg"></i>
+                <span>Codebase</span>
+            </a>
+        </div>
+        <p class="text-xs font-semibold text-gray-500">_TECH STACK //</p>
+        <ul class="flex flex-wrap gap-2 mt-1">
+            <li class="bg-yellow-900 text-yellow-200 px-3 py-1 rounded-full text-xs">FastAPI</li>
+            <li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-xs">Python</li>
+            <li class="bg-blue-900 text-blue-200 px-3 py-1 rounded-full text-xs">Docker</li>
+            <li class="bg-teal-900 text-teal-200 px-3 py-1 rounded-full text-xs">JavaScript</li>
+        </ul>
+    </div>
+</div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="max-w-6xl mx-auto px-6 py-20 z-10 relative">
+        <h2 class="text-3xl font-bold mb-12 text-center text-neon">>>> CORE DIRECTIVES</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div>
+                <h3 class="text-2xl font-semibold mb-4 text-neon">TECH & PROTOCOLS</h3>
+                <div class="flex flex-wrap gap-3">
+                    <span class="bg-gray-800 text-gray-300 px-4 py-2 rounded-full font-medium shadow-sm border border-gray-700">Laravel / PHP</span>
+                    <span class="bg-gray-800 text-gray-300 px-4 py-2 rounded-full font-medium shadow-sm border border-gray-700">Vue.js</span>
+                    <span class="bg-gray-800 text-gray-300 px-4 py-2 rounded-full font-medium shadow-sm border border-gray-700">Kotlin Multiplatform</span>
+                    <span class="bg-gray-800 text-gray-300 px-4 py-2 rounded-full font-medium shadow-sm border border-gray-700">Jetpack Compose</span>
+                    <span class="bg-gray-800 text-gray-300 px-4 py-2 rounded-full font-medium shadow-sm border border-gray-700">FastAPI / Python</span>
+                    <span class="bg-gray-800 text-gray-300 px-4 py-2 rounded-full font-medium shadow-sm border border-gray-700">Firebase</span>
+                    <span class="bg-gray-800 text-gray-300 px-4 py-2 rounded-full font-medium shadow-sm border border-gray-700">Docker & CI/CD</span>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-2xl font-semibold mb-4 text-neon">METHODOLOGY & LEADERSHIP</h3>
+                <ul class="list-disc pl-6 text-gray-400 space-y-2">
+                    <li>Full-Stack Solution Architecture (Laravel, Kotlin, Vue, APIs)</li>
+                    <li>Agile & DevOps Integration with CI/CD best practices</li>
+                    <li>Stakeholder Communication, Mentorship & Team Alignment</li>
+                    <li>Data-Driven Planning & Scalable System Design</li>
+                    <li>Analytical Problem Solving across Web & Mobile Platforms</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="bg-gray-900 text-white py-20 z-10 relative">
+        <div class="max-w-4xl mx-auto text-center px-6">
+            <h2 class="text-3xl font-bold mb-6 text-neon">>>> INITIATE CONNECTION</h2>
+            <p class="text-lg mb-8 text-gray-400">If our objectives align, let’s converge. Access my data streams or transmit a direct message.</p>
+            <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
+                <a href="mailto:pitmwania@gmail.com" class="flex items-center space-x-2 text-white hover-neon transition duration-300">
+                    <i class="ri-mail-line text-2xl"></i>
+                    <span>pitmwania@gmail.com</span>
+                </a>
+                <a href="https://github.com/uncleBandit" target="_blank" class="flex items-center space-x-2 text-white hover-neon transition duration-300">
+                    <i class="ri-github-fill text-2xl"></i>
+                    <span>github.com/uncleBandit</span>
+                </a>
+                <a href="https://www.linkedin.com/in/peter-mwania-893375113/" target="_blank" class="flex items-center space-x-2 text-white hover-neon transition duration-300">
+                    <i class="ri-linkedin-fill text-2xl"></i>
+                    <span>linkedin.com/in/peter-mwania</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-center py-6 text-gray-600 bg-gray-950 z-10 relative">
+        <p>TERMINAL LOG: 2025. PETER.MWANIA. ALL RIGHTS RESERVED_</p>
+    </footer>
+
+    <script>
+        // Hero text animation
+        document.addEventListener("DOMContentLoaded", () => {
+            const glitchText = document.querySelector(".glitch");
+            setTimeout(() => {
+                glitchText.style.animation = "glitch-anim 2s infinite linear alternate-reverse, glitch-anim2 2s infinite linear alternate-reverse";
+            }, 1000);
+        });
+
+        // Typing Effect for Manifesto
+        const manifestoText = `
+            <p>I am **Peter Mwania Mwendwa**, a **digital architect** who builds immersive realities. Specializing in **Laravel, Kotlin**, and modern **JavaScript frameworks**, I craft systems that don't just solve problems; they anticipate them. My work is a synthesis of art and science—transforming raw logic into elegant, scalable platforms.</p>
+            <p class="mt-4">My foundation in **backend architecture, APIs**, and **cloud deployment** allows me to bridge the void between front-end aesthetics and core functionality. I navigate the complex data streams of **fintech, eCommerce, and AI**, architecting solutions that balance innovation with unwavering performance.</p>
+            <p class="mt-4">I am driven by a singular purpose: to **transcend code** and create impactful solutions. I believe in the power of **Clean Architecture, DevOps culture, and real-time interactivity**. My objective is simple: to transform abstract concepts into tangible, high-impact digital products.</p>
+        `;
+
+        const typingSpeed = 25; // in milliseconds
+        let charIndex = 0;
+        const targetElement = document.getElementById("manifesto-text");
+        const tempElement = document.createElement("div");
+
+        function typeWriter() {
+            if (charIndex < manifestoText.length) {
+                const char = manifestoText.charAt(charIndex);
+                if (char === '<') {
+                    // Find the end of the HTML tag
+                    const endTagIndex = manifestoText.indexOf('>', charIndex);
+                    if (endTagIndex !== -1) {
+                        tempElement.innerHTML += manifestoText.substring(charIndex, endTagIndex + 1);
+                        charIndex = endTagIndex + 1;
+                    }
+                } else {
+                    tempElement.innerHTML += char;
+                    charIndex++;
+                }
+
+                targetElement.innerHTML = tempElement.innerHTML + '<span class="typing-cursor"></span>';
+                setTimeout(typeWriter, typingSpeed);
+            } else {
+                targetElement.innerHTML = tempElement.innerHTML;
+            }
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    typeWriter();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        observer.observe(document.getElementById("profile"));
+
+        // tsParticles Configuration
+        tsParticles.load("tsparticles", {
+            "fullScreen": { "enable": true, "zIndex": -1 },
+            "particles": {
+                "number": { "value": 80 },
+                "color": { "value": "#0ef0f0" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5, "random": false },
+                "size": { "value": 2, "random": true },
+                "links": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#0ef0f0",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 1.5,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "outModes": {
+                        "default": "out"
+                    }
+                }
+            },
+            "interactivity": {
+                "events": {
+                    "onHover": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "onClick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "repulse": {
+                        "distance": 100,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "quantity": 4
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+        
+        // Mobile Menu Script
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.querySelector('button.md\\:hidden');
+            const menu = document.querySelector('nav > div.hidden.md\\:flex');
+            menuBtn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+                menu.classList.toggle('flex');
+                menu.classList.toggle('flex-col');
+                menu.classList.toggle('absolute');
+                menu.classList.toggle('top-16');
+                menu.classList.toggle('bg-black');
+                menu.classList.toggle('p-4');
+                menu.classList.toggle('rounded-lg');
+                menu.classList.toggle('shadow-md');
+                menu.classList.toggle('w-full');
+                menu.classList.toggle('left-0');
+            });
+        });
+    </script>
+</body>
+</html>
