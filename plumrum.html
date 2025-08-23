@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlumRum - eCommerce Showcase</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-neon: #f1fafa;
+            --color-neon-secondary: #ee1aae; /* A new complementary neon color */
+            --color-bg-dark: #0d0d0d;
+            --color-text-light: #d1d5db;
+        }
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background-color: var(--color-bg-dark);
+            color: var(--color-text-light);
+            overflow-x: hidden;
+        }
+        .font-orbitron { font-family: 'Orbitron', sans-serif; }
+        .card-glass {
+            background-color: rgba(70, 45, 45, 0.05);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+            position: relative;
+            z-index: 10;
+        }
+        .card-glass:hover {
+            transform: scale(1.02);
+            border-color: var(--color-neon);
+            box-shadow: 0 0 15px var(--color-neon);
+        }
+        .text-neon { color: var(--color-neon); }
+        .hover-neon:hover { color: var(--color-neon); }
+        .border-neon { border-color: var(--color-neon); }
+
+        /* Liquid particles animation for hero section */
+        .hero-bg-liquid::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            mask-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><filter id="a"><feTurbulence baseFrequency="0.01 0.05" type="fractalNoise" result="turbulence" numOctaves="2" /><feDisplacementMap in="SourceGraphic" in2="turbulence" scale="15" /></filter><rect width="100%" height="100%" fill="white" filter="url(%23a)" /></svg>');
+            animation: liquid-flow 10s infinite alternate ease-in-out;
+            z-index: -1;
+        }
+
+        .hero-bg-liquid::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(14, 240, 240, 0.05); /* Neon color for particles */
+            mask-image: url('data:image/svg+xml;charset=UTF-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><filter id="a"><feTurbulence baseFrequency="0.01 0.05" type="fractalNoise" result="turbulence" numOctaves="2" /><feDisplacementMap in="SourceGraphic" in2="turbulence" scale="10" /></filter><rect width="100%" height="100%" fill="white" filter="url(%23a)" /></svg>');
+            animation: liquid-flow 12s infinite alternate-reverse ease-in-out;
+            z-index: -2;
+        }
+
+        @keyframes liquid-flow {
+            0% { transform: translate(0, 0) rotate(0deg) scale(1); }
+            100% { transform: translate(50px, 100px) rotate(1deg) scale(1.1); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .nav-underline-animation::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: var(--color-neon);
+            transition: width 0.3s ease-in-out;
+        }
+        .nav-underline-animation:hover::after {
+            width: 100%;
+        }
+    </style>
+</head>
+<body class="bg-gray-950">
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-60 backdrop-blur-lg">
+    <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        <a href="../index.html" class="text-xl font-bold text-neon hover:text-white transition font-orbitron">PETER.MWANIA</a>
+        <div class="flex space-x-6 text-sm font-medium">
+            <a href="#overview" class="hover-neon nav-underline-animation">_OVERVIEW</a>
+            <a href="#features" class="hover-neon nav-underline-animation">_FEATURES</a>
+            <a href="#roles" class="hover-neon nav-underline-animation">_USERS</a>
+            <a href="#tech" class="hover-neon nav-underline-animation">_TECH STACK</a>
+            <a href="#contact" class="hover-neon nav-underline-animation">_CONTACT</a>
+        </div>
+    </nav>
+</header>
+
+<section id="hero" class="h-screen flex flex-col justify-center items-center text-center p-6 pt-40 relative hero-bg-liquid">
+    <h1 class="text-6xl md:text-8xl font-extrabold mb-4 text-white font-orbitron">PlumRum</h1>
+    <p class="text-xl md:text-2xl mb-8 text-gray-400">Scalable eCommerce Platform | Real-time Analytics | Multi-Role Management</p>
+    <a href="#overview" class="px-8 py-4 text-neon font-semibold rounded-full shadow-lg transition-transform transform hover:scale-105 duration-300 border border-white/20 hover:border-neon relative overflow-hidden group">
+        <span class="relative z-10">Explore Project</span>
+        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-neon opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+    </a>
+</section>
+
+<section id="overview" class="max-w-6xl mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold mb-6 text-neon text-center">>>> Project Overview</h2>
+    <p class="text-gray-400 text-center max-w-3xl mx-auto leading-relaxed">
+        PlumRum is a robust eCommerce system designed to serve both **customers** and **administrators**. Customers enjoy a personalized shopping experience, while admins maintain complete control over inventory, orders, and analytics. The system integrates **M-Pesa, Stripe, and PayPal**, ensuring seamless and secure transactions.
+    </p>
+    
+</section>
+
+<section class="w-full">
+    <div id="image-carousel" class="flex flex-nowrap gap-8 overflow-x-hidden py-4 pl-6 pr-6">
+        <img src="assets/admindashboard.jpg" alt="Admin Dashboard" class="w-72 h-44 flex-shrink-0 object-cover rounded-xl shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-neon" style="scroll-snap-align: start; transform-origin: center; perspective: 1000px;">
+        <img src="assets/placed.jpg" alt="Placed" class="w-72 h-44 flex-shrink-0 object-cover rounded-xl shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-neon" style="scroll-snap-align: start; transform-origin: center; perspective: 1000px;">
+        <img src="assets/Screenshot 2025-07-21 221910.jpg" alt="Product Catalog" class="w-72 h-44 flex-shrink-0 object-cover rounded-xl shadow-lg transform transition-all duration-300 hover:scale-105 hover:hover:shadow-neon" style="scroll-snap-align: start; transform-origin: center; perspective: 1000px;">
+        <img src="assets/payment.jpg" alt="Payment" class="w-72 h-44 flex-shrink-0 object-cover rounded-xl shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-neon" style="scroll-snap-align: start; transform-origin: center; perspective: 1000px;">
+        <img src="assets/welcomescreens.jpg" alt="welcomescreens" class="w-72 h-44 flex-shrink-0 object-cover rounded-xl shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-neon" style="scroll-snap-align: start; transform-origin: center; perspective: 1000px;">
+        <img src="assets/payment.jpg" alt="Payment" class="w-72 h-44 flex-shrink-0 object-cover rounded-xl shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-neon" style="scroll-snap-align: start; transform-origin: center; perspective: 1000px;">
+        <img src="assets/userprofile.jpg" alt="User Profile" class="w-72 h-44 flex-shrink-0 object-cover rounded-xl shadow-lg transform transition-all duration-300 hover:scale-105 hover:shadow-neon" style="scroll-snap-align: start; transform-origin: center; perspective: 1000px;">
+    </div>
+</section>
+
+<script>
+    const carousel = document.getElementById('image-carousel');
+    let scrollPosition = 0;
+    const scrollStep = 320; // Corresponds to w-72 (288px) + gap-8 (32px)
+
+    function autoScroll() {
+        if (scrollPosition >= carousel.scrollWidth - carousel.clientWidth) {
+            scrollPosition = 0;
+        } else {
+            scrollPosition += scrollStep;
+        }
+        carousel.scrollTo({
+            left: scrollPosition,
+            behavior: 'smooth'
+        });
+    }
+
+    setInterval(autoScroll, 3000); // Change image every 3 seconds
+</script>
+<section id="features" class="max-w-6xl mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold mb-12 text-center text-neon">>>> Key Features</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="card-glass p-6 rounded-xl shadow-lg">
+            <div class="text-4xl text-neon mb-4"><i class="ri-shopping-cart-line"></i></div>
+            <h3 class="text-2xl font-bold mb-2">Customer Shopping</h3>
+            <p class="text-gray-400">Personalized product catalog, wishlist, cart management, and secure checkout using multiple payment gateways.</p>
+        </div>
+        <div class="card-glass p-6 rounded-xl shadow-lg">
+            <div class="text-4xl text-neon mb-4"><i class="ri-dashboard-line"></i></div>
+            <h3 class="text-2xl font-bold mb-2">Admin Dashboard</h3>
+            <p class="text-gray-400">Monitor daily sales, update orders, manage inventory, and communicate order progress to customers in real-time.</p>
+        </div>
+        <div class="card-glass p-6 rounded-xl shadow-lg">
+            <div class="text-4xl text-neon mb-4"><i class="ri-bar-chart-line"></i></div>
+            <h3 class="text-2xl font-bold mb-2">Analytics</h3>
+            <p class="text-gray-400">Real-time reporting for sales, inventory, and customer engagement for informed decision-making and performance optimization.</p>
+        </div>
+    </div>
+</section>
+
+<section id="roles" class="max-w-6xl mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold mb-12 text-center text-neon">>>> User Roles</h2>
+
+    <div class="flex justify-center gap-4 mb-12">
+        <button class="role-tab px-6 py-2 text-neon border border-neon rounded-xl" data-role="customer">Customer</button>
+        <button class="role-tab px-6 py-2 text-neon border border-neon rounded-xl" data-role="admin">Admin</button>
+    </div>
+
+    <div id="role-content" class="space-y-6">
+        <div class="role-panel fade-in" data-role="customer">
+            <h3 class="text-2xl font-bold text-neon">Customer Experience</h3>
+            <ul class="list-disc pl-6 text-gray-400 space-y-2">
+                <li>Login: <strong>test@example.com</strong> | Password: <strong>password</strong></li>
+                <li>Customizable profile with personal preferences.</li>
+                <li>Browse and shop products with smooth cart functionality.</li>
+                <li>Track orders in real-time with status updates from admin.</li>
+                <li>Access purchase history and receipts.</li>
+            </ul>
+        </div>
+        <div class="role-panel hidden fade-in" data-role="admin">
+            <h3 class="text-2xl font-bold text-neon">Admin Experience</h3>
+            <ul class="list-disc pl-6 text-gray-400 space-y-2">
+                <li>Login: <strong>admin@plumrum.com</strong> | Password: <strong>password</strong></li>
+                <li>Full dashboard access for monitoring daily operations.</li>
+                <li>Update order status to keep customers informed.</li>
+                <li>Create, update, and remove inventory items.</li>
+                <li>Generate analytics reports for sales, inventory, and customer engagement.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section id="tech" class="max-w-6xl mx-auto px-6 py-20">
+    <h2 class="text-3xl font-bold mb-12 text-center text-neon">>>> Tech Stack</h2>
+    <div class="flex flex-wrap justify-center gap-4">
+        <span class="bg-gray-800 text-gray-200 px-4 py-2 rounded-full font-medium shadow-sm border border-gray-700">Laravel / PHP</span>
+        <span class="bg-gray-800 text-gray-200 px-4 py-2 rounded-full font-medium shadow-sm border border-gray-700">Vue.js</span>
+        <span class="bg-gray-800 text-gray-200 px-4 py-2 rounded-full font-medium shadow-sm border border-gray-700">Inertia.js</span>
+        <span class="bg-gray-800 text-gray-200 px-4 py-2 rounded-full font-medium shadow-sm border border-gray-700">Tailwind CSS</span>
+        <span class="bg-gray-800 text-gray-200 px-4 py-2 rounded-full font-medium shadow-sm border border-gray-700">M-Pesa / Stripe / PayPal</span>
+        <span class="bg-gray-800 text-gray-200 px-4 py-2 rounded-full font-medium shadow-sm border border-gray-700">Docker & CI/CD</span>
+    </div>
+</section>
+
+<section id="contact" class="bg-gray-900 py-20">
+    <h2 class="text-3xl font-bold mb-6 text-center text-neon">>>> Contact / Access</h2>
+    <p class="text-gray-400 text-center max-w-2xl mx-auto mb-6">
+        You can explore PlumRum live via the <a href="http://104.131.13.234/" class="hover-neon underline">Live Demo</a> or check the <a href="https://github.com/uncleBandit/PlumRum" class="hover-neon underline">Codebase</a>.
+    </p>
+    <div class="text-center">
+        <a href="index.html" class="px-8 py-4 text-neon font-semibold rounded-full border border-neon hover:bg-neon hover:text-black transition">Back to Portfolio</a>
+    </div>
+</section>
+
+<script>
+    const tabs = document.querySelectorAll('.role-tab');
+    const panels = document.querySelectorAll('.role-panel');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const activePanel = document.querySelector('.role-panel:not(.hidden)');
+            if (activePanel) {
+                activePanel.classList.remove('fade-in');
+                activePanel.classList.add('hidden');
+            }
+            
+            panels.forEach(panel => {
+                if (panel.dataset.role === tab.dataset.role) {
+                    panel.classList.remove('hidden');
+                    panel.classList.add('fade-in');
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>
