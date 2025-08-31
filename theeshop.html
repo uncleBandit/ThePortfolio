@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TheeShop API Showcase</title>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+<header class="bg-indigo-600 text-white p-4 shadow-md">
+  <h1 class="text-2xl font-bold">TheeShop API Showcase</h1>
+  <p class="text-indigo-100 mt-1">Explore Products, Payments, Orders, and Recommendations in real-time!</p>
+</header>
+
+<main class="max-w-7xl mx-auto p-6 space-y-12">
+
+  <!-- AUTHENTICATION -->
+  <section class="bg-white p-6 rounded shadow-md">
+    <h2 class="text-xl font-semibold mb-4">Login / Register</h2>
+    <div class="flex flex-col sm:flex-row gap-4">
+      <input id="email" type="email" placeholder="Email" class="border p-2 rounded flex-1">
+      <input id="password" type="password" placeholder="Password" class="border p-2 rounded flex-1">
+      <button id="loginBtn" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Login</button>
+    </div>
+    <p id="authMessage" class="mt-2 text-sm"></p>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section>
+    <h2 class="text-xl font-semibold mb-4">Products</h2>
+    <div id="products" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+  </section>
+
+  <!-- PAYMENTS -->
+  <section>
+    <h2 class="text-xl font-semibold mb-4">Payments</h2>
+    <table class="w-full table-auto bg-white shadow-md rounded overflow-hidden">
+      <thead class="bg-indigo-500 text-white">
+        <tr>
+          <th class="px-4 py-2 text-left">ID</th>
+          <th class="px-4 py-2 text-left">Invoice</th>
+          <th class="px-4 py-2 text-left">Amount</th>
+          <th class="px-4 py-2 text-left">Status</th>
+          <th class="px-4 py-2 text-left">Method</th>
+        </tr>
+      </thead>
+      <tbody id="payments" class="divide-y divide-gray-200"></tbody>
+    </table>
+  </section>
+
+  <!-- RECOMMENDATIONS -->
+  <section>
+    <h2 class="text-xl font-semibold mb-4">Recommended Products</h2>
+    <div id="recommendations" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+  </section>
+
+  <!-- BULK PRODUCT CREATION -->
+  <section>
+    <h2 class="text-xl font-semibold mb-4">Bulk Create Products</h2>
+    <form id="bulkProductForm" class="bg-white p-4 rounded shadow-md space-y-4">
+      <textarea id="bulkProductsInput" rows="6" placeholder='Paste JSON array of products here...' class="w-full border rounded p-2"></textarea>
+      <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Create Products</button>
+    </form>
+    <div id="bulkResult" class="mt-4"></div>
+  </section>
+
+</main>
+
+<footer class="bg-gray-200 p-4 text-center">&copy; 2025 TheeShop API Demo</footer>
+
+<script>
+let API_BASE = "http://theeshop.unclecanvas.com/api"; // replace with your API base
+let TOKEN = null; // will be set after login
+
+// AUTH
+document.getElementById("loginBtn").addEventListener("click", async () => {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  try {
+    const res = await axios.post(`${API_BASE}/login`, { email, password });
+    TOKEN = res.data.token;
+    document.getElementById("authMessage").innerText = `Logged in as ${res.data.user.name}`;
+    fetchProducts();
+    fetchPayments();
+    fetchRecommendations();
+  } catch(err) {
+    document.getElementById("authMessage").innerText = err.response?.data?.message || err.message;
+  }
+});
+
+// PRODUCTS
+async function fetchProducts() {
+  try {
+    const res = await axios.get(`${API_BASE}v1/products`, { headers: { Authorization: `Bearer ${TOKEN}` }});
+    const container = document.getElementById("products");
+    container.innerHTML = res.data.data.map(p => `
+      <div class="bg-white rounded shadow p-4 flex flex-col">
+        <img src="${p.thumbnail || 'https://via.placeholder.com/150'}" alt="${p.name}" class="h-40 w-full object-cover mb-2 rounded">
+        <h3 class="font-semibold text-lg">${p.name}</h3>
+        <p class="text-gray-500">SKU: ${p.sku}</p>
+        <p class="text-gray-800 font-bold mt-2">$${p.price}</p>
+        <span class="mt-auto ${p.in_stock ? 'text-green-600' : 'text-red-600'} font-semibold">
+          ${p.in_stock ? 'In Stock' : 'Out of Stock'}
+        </span>
+      </div>
+    `).join('');
+  } catch(err) {
+    console.error(err);
+  }
+}
+
+// PAYMENTS
+async function fetchPayments() {
+  try {
+    const res = await axios.get(`${API_BASE}v1/payment`, { headers: { Authorization: `Bearer ${TOKEN}` }});
+    const tbody = document.getElementById("payments");
+    tbody.innerHTML = res.data.data.map(p => `
+      <tr>
+        <td class="px-4 py-2">${p.id}</td>
+        <td class="px-4 py-2">${p.invoice_id}</td>
+        <td class="px-4 py-2">${p.amount}</td>
+        <td class="px-4 py-2">${p.status}</td>
+        <td class="px-4 py-2">${p.payment_method}</td>
+      </tr>
+    `).join('');
+  } catch(err) { console.error(err); }
+}
+
+// RECOMMENDATIONS
+async function fetchRecommendations() {
+  try {
+    const res = await axios.get(`${API_BASE}v1/recommendations`, { headers: { Authorization: `Bearer ${TOKEN}` }});
+    const container = document.getElementById("recommendations");
+    container.innerHTML = res.data.data.map(p => `
+      <div class="bg-white rounded shadow p-4 flex flex-col">
+        <img src="${p.thumbnail || 'https://via.placeholder.com/150'}" alt="${p.name}" class="h-40 w-full object-cover mb-2 rounded">
+        <h3 class="font-semibold text-lg">${p.name}</h3>
+        <p class="text-gray-800 font-bold mt-2">$${p.price}</p>
+      </div>
+    `).join('');
+  } catch(err) { console.error(err); }
+}
+
+// BULK PRODUCT CREATION
+document.getElementById("bulkProductForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  try {
+    const products = JSON.parse(document.getElementById("bulkProductsInput").value);
+    const res = await axios.post(`${API_BASE}v1/product/bulk`, { products }, { headers: { Authorization: `Bearer ${TOKEN}` }});
+    document.getElementById("bulkResult").innerHTML = `<p class="text-green-600">${res.data.message}</p>`;
+    fetchProducts();
+  } catch(err) {
+    document.getElementById("bulkResult").innerHTML = `<p class="text-red-600">${err.response?.data?.message || err.message}</p>`;
+  }
+});
+</script>
+
+</body>
+</html>
