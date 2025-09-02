@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TheeShop API Showcase</title>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TheeShop API Showcase</title>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 font-sans">
 
 <header class="bg-indigo-600 text-white p-4 shadow-md">
   <h1 class="text-2xl font-bold">TheeShop API Showcase</h1>
-  <p class="text-indigo-100 mt-1">Explore Products, Payments, Orders, and Recommendations in real-time!</p>
+  <p class="text-indigo-100 mt-1">Test Products, Payments, Orders, and Recommendations live!</p>
 </header>
 
 <main class="max-w-7xl mx-auto p-6 space-y-12">
 
   <!-- AUTHENTICATION -->
   <section class="bg-white p-6 rounded shadow-md">
-    <h2 class="text-xl font-semibold mb-4">Login / Register</h2>
-    <div class="flex flex-col sm:flex-row gap-4">
+    <h2 class="text-xl font-semibold mb-4">Authentication</h2>
+    <div class="flex flex-col sm:flex-row gap-4 mb-4">
       <input id="email" type="email" placeholder="Email" class="border p-2 rounded flex-1">
       <input id="password" type="password" placeholder="Password" class="border p-2 rounded flex-1">
+    </div>
+    <div class="flex gap-4">
       <button id="loginBtn" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Login</button>
+      <button id="registerBtn" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Register</button>
+      <button id="logoutBtn" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 hidden">Logout</button>
     </div>
     <p id="authMessage" class="mt-2 text-sm"></p>
   </section>
@@ -60,7 +64,7 @@
   <section>
     <h2 class="text-xl font-semibold mb-4">Bulk Create Products</h2>
     <form id="bulkProductForm" class="bg-white p-4 rounded shadow-md space-y-4">
-      <textarea id="bulkProductsInput" rows="6" placeholder='Paste JSON array of products here...' class="w-full border rounded p-2"></textarea>
+      <textarea id="bulkProductsInput" rows="6" placeholder='[{"name":"Test Product","price":100,"sku":"SKU123"}]' class="w-full border rounded p-2"></textarea>
       <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">Create Products</button>
     </form>
     <div id="bulkResult" class="mt-4"></div>
@@ -71,69 +75,98 @@
 <footer class="bg-gray-200 p-4 text-center">&copy; 2025 TheeShop API Demo</footer>
 
 <script>
-let API_BASE = "http://theeshop.unclecanvas.com/api"; // replace with your API base
-let TOKEN = null; // will be set after login
+const API_BASE = "https://theeshop.unclecanvas.com/api";
+let TOKEN = localStorage.getItem("token");
 
-// AUTH
-document.getElementById("loginBtn").addEventListener("click", async () => {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  try {
-    const res = await axios.post(`${API_BASE}/login`, { email, password });
-    TOKEN = res.data.token;
-    document.getElementById("authMessage").innerText = `Logged in as ${res.data.user.name}`;
-    fetchProducts();
-    fetchPayments();
-    fetchRecommendations();
-  } catch(err) {
-    document.getElementById("authMessage").innerText = err.response?.data?.message || err.message;
-  }
+// ✅ Axios instance with dynamic auth header
+const api = axios.create({ baseURL: API_BASE });
+api.interceptors.request.use(config => {
+  if (TOKEN) config.headers.Authorization = `Bearer ${TOKEN}`;
+  return config;
 });
 
-// PRODUCTS
-async function fetchProducts() {
-  try {
-    const res = await axios.get(`${API_BASE}v1/products`, { headers: { Authorization: `Bearer ${TOKEN}` }});
-    const container = document.getElementById("products");
-    container.innerHTML = res.data.data.map(p => `
-      <div class="bg-white rounded shadow p-4 flex flex-col">
-        <img src="${p.thumbnail || 'https://via.placeholder.com/150'}" alt="${p.name}" class="h-40 w-full object-cover mb-2 rounded">
-        <h3 class="font-semibold text-lg">${p.name}</h3>
-        <p class="text-gray-500">SKU: ${p.sku}</p>
-        <p class="text-gray-800 font-bold mt-2">$${p.price}</p>
-        <span class="mt-auto ${p.in_stock ? 'text-green-600' : 'text-red-600'} font-semibold">
-          ${p.in_stock ? 'In Stock' : 'Out of Stock'}
-        </span>
-      </div>
-    `).join('');
-  } catch(err) {
-    console.error(err);
-  }
+// AUTH
+async function login(email, password) {
+  const res = await api.post("/login", { email, password });
+  TOKEN = res.data.token;
+  localStorage.setItem("token", TOKEN);
+  document.getElementById("authMessage").innerText = `Logged in as ${res.data.user.name}`;
+  document.getElementById("logoutBtn").classList.remove("hidden");
+  fetchSecureData();
 }
 
-// PAYMENTS
+async function register(email, password) {
+  const res = await api.post("/register", { 
+    name: email.split("@")[0],
+    email, password, password_confirmation: password 
+  });
+  TOKEN = res.data.token;
+  localStorage.setItem("token", TOKEN);
+  document.getElementById("authMessage").innerText = `Registered & logged in as ${res.data.user.name}`;
+  document.getElementById("logoutBtn").classList.remove("hidden");
+  fetchSecureData();
+}
+
+document.getElementById("loginBtn").addEventListener("click", () => {
+  login(document.getElementById("email").value, document.getElementById("password").value).catch(err => {
+    document.getElementById("authMessage").innerText = err.response?.data?.message || err.message;
+  });
+});
+
+document.getElementById("registerBtn").addEventListener("click", () => {
+  register(document.getElementById("email").value, document.getElementById("password").value).catch(err => {
+    document.getElementById("authMessage").innerText = err.response?.data?.message || err.message;
+  });
+});
+
+document.getElementById("logoutBtn").addEventListener("click", () => {
+  TOKEN = null;
+  localStorage.removeItem("token");
+  document.getElementById("authMessage").innerText = "Logged out.";
+  document.getElementById("logoutBtn").classList.add("hidden");
+});
+
+// PRODUCTS (public)
+async function fetchProducts() {
+  const res = await api.get("/v1/products");
+  document.getElementById("products").innerHTML = res.data.data.map(p => `
+    <div class="bg-white rounded shadow p-4 flex flex-col">
+      <img src="${p.thumbnail || 'https://via.placeholder.com/150'}" alt="${p.name}" class="h-40 w-full object-cover mb-2 rounded">
+      <h3 class="font-semibold text-lg">${p.name}</h3>
+      <p class="text-gray-500">SKU: ${p.sku}</p>
+      <p class="text-gray-800 font-bold mt-2">$${p.price}</p>
+      <span class="mt-auto ${p.in_stock ? 'text-green-600' : 'text-red-600'} font-semibold">
+        ${p.in_stock ? 'In Stock' : 'Out of Stock'}
+      </span>
+    </div>
+  `).join('');
+}
+
+// PAYMENTS (auth required)
 async function fetchPayments() {
   try {
-    const res = await axios.get(`${API_BASE}v1/payment`, { headers: { Authorization: `Bearer ${TOKEN}` }});
-    const tbody = document.getElementById("payments");
-    tbody.innerHTML = res.data.data.map(p => `
+    const res = await api.get("/v1/payment");
+    document.getElementById("payments").innerHTML = res.data.data.map(p => `
       <tr>
         <td class="px-4 py-2">${p.id}</td>
         <td class="px-4 py-2">${p.invoice_id}</td>
         <td class="px-4 py-2">${p.amount}</td>
-        <td class="px-4 py-2">${p.status}</td>
+        <td class="px-4 py-2">
+          <span class="px-2 py-1 rounded text-xs font-semibold ${p.status === 'confirmed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}">
+            ${p.status}
+          </span>
+        </td>
         <td class="px-4 py-2">${p.payment_method}</td>
       </tr>
     `).join('');
   } catch(err) { console.error(err); }
 }
 
-// RECOMMENDATIONS
+// RECOMMENDATIONS (auth required)
 async function fetchRecommendations() {
   try {
-    const res = await axios.get(`${API_BASE}v1/recommendations`, { headers: { Authorization: `Bearer ${TOKEN}` }});
-    const container = document.getElementById("recommendations");
-    container.innerHTML = res.data.data.map(p => `
+    const res = await api.get("/v1/recommendations");
+    document.getElementById("recommendations").innerHTML = res.data.data.map(p => `
       <div class="bg-white rounded shadow p-4 flex flex-col">
         <img src="${p.thumbnail || 'https://via.placeholder.com/150'}" alt="${p.name}" class="h-40 w-full object-cover mb-2 rounded">
         <h3 class="font-semibold text-lg">${p.name}</h3>
@@ -148,13 +181,22 @@ document.getElementById("bulkProductForm").addEventListener("submit", async (e) 
   e.preventDefault();
   try {
     const products = JSON.parse(document.getElementById("bulkProductsInput").value);
-    const res = await axios.post(`${API_BASE}v1/product/bulk`, { products }, { headers: { Authorization: `Bearer ${TOKEN}` }});
-    document.getElementById("bulkResult").innerHTML = `<p class="text-green-600">${res.data.message}</p>`;
+    const res = await api.post("/v1/product/bulk", { products });
+    document.getElementById("bulkResult").innerHTML = `<p class="text-green-600">${res.data.message || "Products created!"}</p>`;
     fetchProducts();
   } catch(err) {
     document.getElementById("bulkResult").innerHTML = `<p class="text-red-600">${err.response?.data?.message || err.message}</p>`;
   }
 });
+
+// ✅ Load products always, and secured endpoints if logged in
+function fetchSecureData() {
+  fetchPayments();
+  fetchRecommendations();
+}
+
+fetchProducts();
+if (TOKEN) fetchSecureData();
 </script>
 
 </body>
