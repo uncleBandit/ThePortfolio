@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holiday Hub // Next-Gen Booking Architecture by Peter Mwania</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #0A0A1F; /* Deep techy blue/purple */
+            --accent-blue: #00F0FF; /* Bright Cyan */
+            --accent-purple: #9D55FF; /* Vibrant Purple */
+            --text-light: #E0E7FF; /* Off-white for readability */
+            --card-border: rgba(157, 85, 255, 0.3); /* Lighter purple for border */
+            --card-bg: rgba(0, 0, 0, 0.3); /* Darker, more transparent for depth */
+            --code-bg: rgba(0, 240, 255, 0.1); /* Light cyan for code blocks */
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* Hero Glitch effect (refined from your portfolio) */
+        .glitch-heading {
+            position: relative;
+            animation: none; /* Remove initial animation */
+            text-shadow: 0 0 15px var(--accent-blue), 0 0 30px var(--accent-blue);
+        }
+        .glitch-heading::before, .glitch-heading::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-dark);
+            overflow: hidden;
+            z-index: -1;
+            opacity: 0.9;
+        }
+        .glitch-heading::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--accent-purple);
+            animation: glitch-anim-primary 3s infinite linear alternate-reverse;
+        }
+        .glitch-heading::after {
+            left: -2px;
+            text-shadow: 2px 0 var(--accent-blue), -2px 2px var(--accent-purple);
+            animation: glitch-anim-secondary 3s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim-primary {
+            0% { clip-path: inset(25% 0 35% 0); }
+            20% { clip-path: inset(70% 0 5% 0); }
+            40% { clip-path: inset(10% 0 60% 0); }
+            60% { clip-path: inset(45% 0 25% 0); }
+            80% { clip-path: inset(80% 0 10% 0); }
+            100% { clip-path: inset(25% 0 35% 0); }
+        }
+        @keyframes glitch-anim-secondary {
+            0% { clip-path: inset(55% 0 25% 0); }
+            20% { clip-path: inset(5% 0 70% 0); }
+            40% { clip-path: inset(60% 0 10% 0); }
+            60% { clip-path: inset(25% 0 45% 0); }
+            80% { clip-path: inset(10% 0 80% 0); }
+            100% { clip-path: inset(55% 0 25% 0); }
+        }
+
+        /* Futuristic Card Effect */
+        .card-futuristic {
+            background: var(--card-bg);
+            backdrop-filter: blur(25px) saturate(200%);
+            -webkit-backdrop-filter: blur(25px) saturate(200%);
+            border: 1px solid var(--card-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            transition: all 0.4s ease-in-out;
+            position: relative;
+            overflow: hidden; /* For glow effect */
+        }
+        .card-futuristic::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, var(--accent-blue) 0%, transparent 70%);
+            opacity: 0;
+            transform: scale(0.1);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .card-futuristic:hover::before {
+            opacity: 0.1;
+            transform: scale(1);
+        }
+        .card-futuristic:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 40px rgba(0, 240, 255, 0.4), 0 0 60px rgba(157, 85, 255, 0.3);
+            transform: translateY(-5px) scale(1.01);
+        }
+        .card-futuristic > * {
+            position: relative;
+            z-index: 1; /* Keep content above the pseudo-element glow */
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background-image: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .tech-tag {
+            background-color: var(--code-bg);
+            border: 1px solid rgba(0, 240, 255, 0.3);
+            color: var(--accent-blue);
+        }
+
+        /* Animated Background Particles (for visual flair) */
+        .particle-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+            opacity: 0.6;
+        }
+        .particle {
+            position: absolute;
+            background: linear-gradient(to bottom right, var(--accent-blue), var(--accent-purple));
+            border-radius: 50%;
+            opacity: 0;
+            animation: moveParticles 15s infinite ease-in-out alternate;
+        }
+        .particle:nth-child(1) { width: 15px; height: 15px; top: 10%; left: 20%; animation-delay: 0s; }
+        .particle:nth-child(2) { width: 25px; height: 25px; top: 50%; left: 80%; animation-delay: 2s; }
+        .particle:nth-child(3) { width: 10px; height: 10px; top: 80%; left: 40%; animation-delay: 4s; }
+        .particle:nth-child(4) { width: 30px; height: 30px; top: 30%; left: 10%; animation-delay: 6s; }
+        .particle:nth-child(5) { width: 20px; height: 20px; top: 60%; left: 60%; animation-delay: 8s; }
+        .particle:nth-child(6) { width: 18px; height: 18px; top: 15%; left: 70%; animation-delay: 10s; }
+        .particle:nth-child(7) { width: 22px; height: 22px; top: 40%; left: 30%; animation-delay: 12s; }
+
+        @keyframes moveParticles {
+            0% { transform: translate(0, 0) scale(1); opacity: 0; }
+            20% { opacity: 0.5; }
+            50% { transform: translate(10vw, 5vh) scale(1.2); opacity: 0.8; }
+            80% { opacity: 0.5; }
+            100% { transform: translate(0, 0) scale(1); opacity: 0; }
+        }
+
+        /* Keyframe for button pulse */
+        @keyframes neon-pulse {
+            0% { box-shadow: 0 0 5px var(--accent-blue), 0 0 10px var(--accent-purple); }
+            50% { box-shadow: 0 0 20px var(--accent-blue), 0 0 30px var(--accent-purple); }
+            100% { box-shadow: 0 0 5px var(--accent-blue), 0 0 10px var(--accent-purple); }
+        }
+        .btn-neon-pulse {
+            animation: neon-pulse 2s infinite alternate;
+        }
+
+    </style>
+</head>
+
+<body class="relative">
+
+    <div class="particle-bg">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="relative z-10 w-full max-w-6xl mx-auto p-4 md:p-8 lg:p-12">
+        <div class="card-futuristic rounded-3xl p-8 md:p-12">
+
+            <header class="text-center mb-10 md:mb-16">
+                <div class="flex flex-col items-center justify-center mb-6">
+                    <img src="assets/HolidayHubLogo.png" 
+                        alt="HolidayHub Logo" 
+                        class="h-40 w-auto mb-4 animate-pulse-light">
+
+                    <h1 class="glitch-heading text-5xl md:text-7xl font-bold text-gradient mb-2" data-text="HOLIDAY HUB">
+                        HOLIDAY HUB
+                    </h1>
+                    <p class="text-lg md:text-2xl text-gray-400 mt-2 font-light">
+                        <span class="text-accent-blue">//</span> Next-Gen Booking Architecture <span class="text-accent-blue">//</span>
+                    </p>
+                    <p class="text-sm md:text-lg text-gray-500 mt-1 font-extralight italic">
+                        Powered by Peter Mwania's Tech Ingenuity
+                    </p>
+                </div>
+            </header>
+
+            <section class="mb-12">
+                <h2 class="heading-poppins text-3xl md:text-4xl font-semibold text-gradient mb-6 text-center">
+                    >>> Project Genesis & Vision
+                </h2>
+                <p class="text-text-light leading-relaxed text-md md:text-lg mb-6 card-futuristic p-6 rounded-lg">
+                    Holiday Hub transcends traditional booking platforms. It's a **multi-dimensional, API-first ecosystem** architected from the ground up to redefine global travel. My vision was to create a seamless nexus, integrating sophisticated **multi-role management** with real-time responsiveness and an intuitive, futuristic user experience. This platform isn't just about booking; it's about orchestrating flawless travel journeys.
+                </p>
+
+                <h3 class="heading-poppins text-xl md:text-2xl font-semibold text-accent-blue mb-4 text-center md:text-left">
+                    Core Architectural Pillars:
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="card-futuristic p-5 rounded-xl text-center">
+                        <i class="ri-git-branch-line text-4xl text-accent-purple mb-3"></i>
+                        <h4 class="font-bold text-lg text-text-light">API-First Design</h4>
+                        <p class="text-gray-400 text-sm">Decoupled backend for ultimate flexibility & integration.</p>
+                    </div>
+                    <div class="card-futuristic p-5 rounded-xl text-center">
+                        <i class="ri-user-star-line text-4xl text-accent-blue mb-3"></i>
+                        <h4 class="font-bold text-lg text-text-light">Multi-Role Access</h4>
+                        <p class="text-gray-400 text-sm">Tailored experiences for Admin, Agent, Provider, Customer.</p>
+                    </div>
+                    <div class="card-futuristic p-5 rounded-xl text-center">
+                        <i class="ri-refresh-line text-4xl text-accent-purple mb-3"></i>
+                        <h4 class="font-bold text-lg text-text-light">Real-time Data</h4>
+                        <p class="text-gray-400 text-sm">Instant updates for bookings, availability & notifications.</p>
+                    </div>
+                    <div class="card-futuristic p-5 rounded-xl text-center">
+                        <i class="ri-shield-check-line text-4xl text-accent-blue mb-3"></i>
+                        <h4 class="font-bold text-lg text-text-light">Fortified Security</h4>
+                        <p class="text-gray-400 text-sm">OAuth2 & robust authorization layers.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="mb-12">
+                <h2 class="heading-poppins text-3xl md:text-4xl font-semibold text-gradient mb-8 text-center">
+                    >>> Interactive Access Matrix
+                </h2>
+                <p class="text-gray-400 leading-relaxed text-md mb-8 text-center">
+                    Witness the multi-faceted architecture in action. Log in as any of the following to experience the tailored functionalities.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div class="card-futuristic p-8 rounded-xl flex flex-col items-center">
+                        <h4 class="heading-poppins text-xl font-bold text-accent-blue mb-3">GUEST INTERFACE</h4>
+                        <p class="mt-2 text-text-light"><span class="font-semibold text-accent-purple">Email:</span> <span class="text-gray-400">testguest@example.com</span></p>
+                        <p class="mt-1 text-text-light"><span class="font-semibold text-accent-purple">Password:</span> <span class="text-gray-400">password123</span></p>
+                        <p class="text-sm text-gray-500 mt-3">Can book different accomodations,packages& activities.</p>
+                    </div>
+                    <div class="card-futuristic p-8 rounded-xl flex flex-col items-center">
+                        <h4 class="heading-poppins text-xl font-bold text-accent-blue mb-3">AGENT CONSOLE</h4>
+                        <p class="mt-2 text-text-light"><span class="font-semibold text-accent-purple">Email:</span> <span class="text-gray-400">testagent@example.com</span></p>
+                        <p class="mt-1 text-text-light"><span class="font-semibold text-accent-purple">Password:</span> <span class="text-gray-400">password123</span></p>
+                        <p class="text-sm text-gray-500 mt-3">Curate & manage bespoke holiday packages.</p>
+                    </div>
+                    <div class="card-futuristic p-8 rounded-xl flex flex-col items-center">
+                        <h4 class="heading-poppins text-xl font-bold text-accent-blue mb-3">PROVIDER PORTAL</h4>
+                        <p class="mt-2 text-text-light"><span class="font-semibold text-accent-purple">Email:</span> <span class="text-gray-400">provider1@holidayhub.test</span></p>
+                        <p class="mt-1 text-text-light"><span class="font-semibold text-accent-purple">Password:</span> <span class="text-gray-400">password123</span></p>
+                        <p class="text-sm text-gray-500 mt-3">Manage services, accommodations & inventory.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="mb-12">
+                <h2 class="heading-poppins text-3xl md:text-4xl font-semibold text-gradient mb-8 text-center">
+                    >>> Technical Blueprint
+                </h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                    <div>
+                        <h3 class="heading-poppins text-2xl font-semibold text-accent-blue mb-4">Core Technologies:</h3>
+                        <ul class="list-disc pl-6 text-text-light space-y-2 text-lg">
+                            <li><strong class="text-accent-purple">Backend:</strong> Laravel / PHP (API-first architecture, robust routing, Eloquent ORM).</li>
+                            <li><strong class="text-accent-purple">Frontend:</strong> Vue.js, Livewire, Volt (Dynamic, reactive UI with real-time capabilities).</li>
+                            <li><strong class="text-accent-purple">Styling:</strong> Tailwind CSS (Utility-first, highly customizable design system).</li>
+                            <li><strong class="text-accent-purple">Authentication:</strong> OAuth2 (Secure, industry-standard authorization flow).</li>
+                            <li><strong class="text-accent-purple">Communication:</strong> Real-time Notifications (Pusher/WebSockets for instant updates).</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="heading-poppins text-2xl font-semibold text-accent-blue mb-4">Ingenious Features:</h3>
+                        <ul class="list-disc pl-6 text-text-light space-y-2 text-lg">
+                            <li>**Scalable Database Schema:** Optimized for vast volumes of holiday data and user interactions.</li>
+                            <li>**Dynamic Content Generation:** Hotel, villa, and activity listings update seamlessly.</li>
+                            <li>**Advanced Search & Filtering:** Precision tools for discovering ideal destinations.</li>
+                            <li>**Intuitive Booking Flow:** Streamlined, secure, and user-friendly transaction pathways.</li>
+                            <li>**Comprehensive Dashboards:** Role-specific analytics and management views.</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mt-10">
+                    <h3 class="heading-poppins text-2xl font-semibold text-accent-blue mb-4 text-center">
+                        Integrated Tech Stack:
+                    </h3>
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <span class="tech-tag px-4 py-2 rounded-full text-sm">Laravel / PHP</span>
+                        <span class="tech-tag px-4 py-2 rounded-full text-sm">Vue.js</span>
+                        <span class="tech-tag px-4 py-2 rounded-full text-sm">Livewire</span>
+                        <span class="tech-tag px-4 py-2 rounded-full text-sm">Volt</span>
+                        <span class="tech-tag px-4 py-2 rounded-full text-sm">Tailwind CSS</span>
+                        <span class="tech-tag px-4 py-2 rounded-full text-sm">OAuth2 / API-first</span>
+                        <span class="tech-tag px-4 py-2 rounded-full text-sm">Real-time Notifications</span>
+                        <span class="tech-tag px-4 py-2 rounded-full text-sm">MySQL Database</span>
+                        <span class="tech-tag px-4 py-2 rounded-full text-sm">Docker (Deployment Ready)</span>
+                    </div>
+                </div>
+            </section>
+
+            <div class="mt-16 text-center">
+                <a href="https://holidayhub.unclecanvas.com/" target="_blank" 
+                   class="inline-flex items-center space-x-3 bg-gradient-to-r from-accent-blue to-accent-purple text-white font-bold py-4 px-10 rounded-full shadow-lg 
+                          transform transition-all duration-500 hover:scale-105 hover:shadow-xl btn-neon-pulse">
+                    <i class="ri-play-circle-line text-2xl"></i>
+                    <span class="text-xl">INITIATE LIVE DEMO //</span>
+                </a>
+                <p class="text-gray-500 text-sm mt-4">
+                    Or delve into the <a href="https://github.com/uncleBandit/HolidayHub.git" target="_blank" class="underline text-accent-blue hover:text-accent-purple transition-colors duration-300">Codebase on GitHub</a>
+                </p>
+            </div>
+            
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const glitchHeading = document.querySelector(".glitch-heading");
+            setTimeout(() => {
+                glitchHeading.style.animation = "glitch-anim-primary 3s infinite linear alternate-reverse, glitch-anim-secondary 3s infinite linear alternate-reverse";
+            }, 500); // Start glitch after 0.5 seconds
+        });
+    </script>
+</body>
+</html>
