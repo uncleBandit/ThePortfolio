@@ -1,583 +1,426 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peter Mwania Mwendwa // The Digital Architect</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
-        
-        body {
-            font-family: 'Share Tech Mono', monospace;
-            background-color: #0d0d0d;
-            color: #d1d5db;
-            overflow-x: hidden;
-        }
-        .card-glass {
-            background-color: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .text-neon {
-            color: #0ef0f0;
-        }
-        .border-neon {
-            border-color: #0ef0f0;
-        }
-        .hover-neon:hover {
-            color: #0ef0f0;
-        }
-        
-        /* Hero text glitch effect */
-        .glitch {
-            position: relative;
-            text-shadow: 0 0 10px #0ef0f0, 0 0 20px #0ef0f0, 0 0 30px #0ef0f0;
-            animation: none; /* Removed initial pulse */
-        }
-        .glitch::before, .glitch::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #0d0d0d;
-            overflow: hidden;
-            z-index: -1;
-        }
-        .glitch::before {
-            left: 2px;
-            text-shadow: -2px 0 #ff00c1;
-            animation: glitch-anim 2s infinite linear alternate-reverse;
-        }
-        .glitch::after {
-            left: -2px;
-            text-shadow: -2px 0 #00fff9, 2px 2px #ff00c1;
-            animation: glitch-anim2 2s infinite linear alternate-reverse;
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Peter Mwania — Full‑Stack Engineer | Portfolio</title>
+  <meta name="description" content="Peter Mwania — Full‑Stack Engineer building human‑centric, high‑performance web & mobile apps. Featured work: HolidayHub, PlumRum, TheEshop API." />
 
-        @keyframes glitch-anim {
-            0% { clip-path: inset(30% 0 30% 0); }
-            20% { clip-path: inset(80% 0 1% 0); }
-            40% { clip-path: inset(10% 0 70% 0); }
-            60% { clip-path: inset(50% 0 20% 0); }
-            80% { clip-path: inset(70% 0 10% 0); }
-            100% { clip-path: inset(20% 0 60% 0); }
-        }
-        @keyframes glitch-anim2 {
-            0% { clip-path: inset(60% 0 20% 0); }
-            20% { clip-path: inset(1% 0 80% 0); }
-            40% { clip-path: inset(70% 0 10% 0); }
-            60% { clip-path: inset(20% 0 50% 0); }
-            80% { clip-path: inset(10% 0 70% 0); }
-            100% { clip-path: inset(30% 0 30% 0); }
-        }
-
-        .profile-photo {
-            border-radius: 50%;
-            border: 3px solid #0ef0f0;
-            box-shadow: 0 0 15px #0ef0f0, 0 0 25px rgba(14, 240, 240, 0.5);
-            transition: transform 0.3s ease-in-out;
-        }
-        .profile-photo:hover {
-            transform: scale(1.05);
-        }
-
-        /* Typing cursor animation */
-        .typing-cursor {
-            display: inline-block;
-            width: 2px;
-            height: 1.2em;
-            background-color: #0ef0f0;
-            margin-left: 2px;
-            animation: blink 1s infinite;
-        }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-        
-    </style>
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles@1.41.0/tsparticles.min.js"></script>
-</head>
-
-<body class="bg-gray-950 text-gray-300 antialiased overflow-x-hidden">
-
-    <div id="tsparticles" style="position: fixed; inset: 0; z-index: 0;"></div>
-
-    <header class="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-60 backdrop-filter backdrop-blur-lg">
-        <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-xl font-bold text-neon hover:text-white transition duration-300">PETER.MWANIA</a>
-            <div class="hidden md:flex space-x-6 text-sm font-medium">
-                <a href="#profile" class="hover-neon transition duration-300">_PROFILE</a>
-                <a href="#services" class="hover-neon transition duration-300">_SERVICES</a>
-                <a href="#projects" class="hover-neon transition duration-300">_PROJECTS</a>
-                <a href="#skills" class="hover-neon transition duration-300">_SKILLS</a>
-                <a href="#contact" class="hover-neon transition duration-300">_CONTACT</a>
-            </div>
-            <button class="md:hidden text-gray-400 p-2 rounded-md hover:text-neon transition duration-300">
-                <i class="ri-menu-line text-2xl"></i>
-            </button>
-        </nav>
-    </header>
-
-    <section class="h-screen relative flex flex-col justify-center items-center text-center p-6 z-10">
-        <div class="relative z-10">
-            <h1 class="text-6xl md:text-8xl font-extrabold mb-4 text-white glitch" data-text="PETER MWANIA">PETER MWANIA</h1>
-            <p class="text-xl md:text-2xl mb-8 text-gray-400">TECHNOLOGY ARCHITECT | FULL-STACK ENGINEER | FINTECH SPECIALIST</p>
-            <a href="#profile" class="relative px-8 py-4 text-neon font-semibold rounded-full shadow-lg transition-transform transform hover:scale-105 duration-300 backdrop-blur-sm bg-white/5 border border-white/20 hover:border-neon group">
-    <span class="relative z-10">INITIATE PROFILE READ_</span>
-    <span class="absolute inset-0 rounded-full bg-neon opacity-0 transition-opacity duration-300 group-hover:opacity-20 animate-pulse"></span>
-</a>
-        </div>
-    </section>
-
-    <section id="profile" class="max-w-6xl mx-auto px-6 py-20 z-10 relative">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
-            <div class="md:col-span-1 flex justify-center items-center">
-                <img src="assets/IMG_6393.jpg" alt="Peter Mwania Mwendwa" class="profile-photo w-64 h-64 object-cover">
-            </div>
-            <div class="md:col-span-2 card-glass p-8 rounded-xl">
-                <h2 class="text-3xl font-bold mb-6 text-neon text-center md:text-left">>>> A DIGITAL MANIFESTO</h2>
-                <div id="manifesto-text" class="text-gray-400 leading-relaxed text-sm md:text-base"></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="services" class="max-w-6xl mx-auto px-6 py-20 z-10 relative">
-        <h2 class="text-3xl font-bold mb-12 text-center text-neon">>>> WHAT I DO</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="card-glass rounded-xl shadow-lg p-8 transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:border-neon">
-                <div class="text-4xl text-neon mb-4"><i class="ri-code-s-slash-line"></i></div>
-                <h3 class="text-2xl font-bold mb-2">FULL-STACK SYNTHESIS</h3>
-                <p class="text-gray-400">Crafting end-to-end digital experiences from the core database to the user interface, specializing in complex web applications.</p>
-            </div>
-            <div class="card-glass rounded-xl shadow-lg p-8 transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:border-neon">
-                <div class="text-4xl text-neon mb-4"><i class="ri-smartphone-line"></i></div>
-                <h3 class="text-2xl font-bold mb-2">MOBILE ENGINEERING</h3>
-                <p class="text-gray-400">Engineering high-performance mobile applications with a focus on cross-platform efficiency and native functionality.</p>
-            </div>
-            <div class="card-glass rounded-xl shadow-lg p-8 transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:border-neon">
-                <div class="text-4xl text-neon mb-4"><i class="ri-bank-card-line"></i></div>
-                <h3 class="text-2xl font-bold mb-2">FINANCIAL SYSTEMS</h3>
-                <p class="text-gray-400">Developing secure, scalable financial systems and integrating with global payment gateways and modern fintech protocols.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" class="bg-gray-950 py-20 z-10 relative">
-
-        
-        <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-3xl font-bold mb-12 text-center text-neon">>>> DIGITAL ARTIFACTS</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10">
-
-                <div class="card-glass rounded-xl shadow-lg p-8 flex flex-col justify-between transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:border-neon">
-                    <div>
-                        <div class="flex justify-between items-center mb-2">
-                            <a href="holidayhub.html" 
-                            class="text-xl font-bold text-neon hover:underline cursor-pointer" 
-                            title="Click to view project details">
-                                HolidayHub <i class="ri-arrow-right-up-line text-sm"></i>
-                            </a>
-
-
-                        <span class="bg-green-900 text-green-200 text-xs font-semibold px-2 py-1 rounded-full border border-green-800">Live</span>
-                        </div>
-                        <p class="text-gray-400 mb-4 leading-relaxed">
-                        HolidayHub is a **modern, API-first holiday booking platform** engineered for **multi-role management** and seamless end-to-end travel experiences. It empowers:
-                        </p>
-                        <ul class="list-disc pl-5 text-gray-400 mb-4 space-y-1 text-sm">
-                        <li><strong>Admin:</strong> full system control, analytics, user & content management.</li>
-                        <li><strong>Agent:</strong> create and manage holiday packages, activities, and promotions.</li>
-                        <li><strong>Provider:</strong> offer accommodations, transport, and other travel services.</li>
-                        <li><strong>Customer:</strong> browse, book, and review holiday packages with secure checkout.</li>
-                        <li>Secure **OAuth2 authentication** and role-based authorization for all users.</li>
-                        <li>Dynamic **hotel, villa, and activity listings** with search, filters, and booking management.</li>
-                        <li>Real-time booking status, notifications, and interactive dashboards for all roles.</li>
-                        <li>Modern UI using **Vue.js, Livewire, and Volt** for seamless and responsive experiences.</li>
-                        </ul>
-                    </div>
-                    <div class="mt-4">
-                        <div class="flex items-center space-x-4 mb-4">
-                        <a href="https://holidayhub.unclecanvas.com/" target="_blank" class="flex items-center space-x-1 text-white hover-neon transition duration-300 text-sm">
-                            <i class="ri-play-circle-line text-lg"></i>
-                            <span>Live Demo</span>
-                        </a>
-                        <a href="https://github.com/uncleBandit/HolidayHub" target="_blank" class="flex items-center space-x-1 text-white hover-neon transition duration-300 text-sm">
-                            <i class="ri-github-fill text-lg"></i>
-                            <span>Codebase</span>
-                        </a>
-                        </div>
-                        <p class="text-xs font-semibold text-gray-500">_TECH STACK //</p>
-                        <ul class="flex flex-wrap gap-2 mt-1">
-                        <li class="bg-blue-900 text-blue-200 px-3 py-1 rounded-full text-xs">Laravel / PHP</li>
-                        <li class="bg-green-900 text-green-200 px-3 py-1 rounded-full text-xs">Vue.js</li>
-                        <li class="bg-indigo-900 text-indigo-200 px-3 py-1 rounded-full text-xs">Livewire</li>
-                        <li class="bg-teal-900 text-teal-200 px-3 py-1 rounded-full text-xs">Volt</li>
-                        <li class="bg-purple-900 text-purple-200 px-3 py-1 rounded-full text-xs">Tailwind CSS</li>
-                        <li class="bg-yellow-900 text-yellow-200 px-3 py-1 rounded-full text-xs">OAuth2 / API-first</li>
-                        <li class="bg-pink-900 text-pink-200 px-3 py-1 rounded-full text-xs">Real-time Notifications</li>
-                        </ul>
-                    </div>
-                    </div>
-
-                
-                
-                <div class="card-glass rounded-xl shadow-lg p-8 flex flex-col justify-between transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:border-neon">
-                    <div>
-                        <div class="flex justify-between items-center mb-2">
-                            <h3 class="text-xl font-bold text-neon">TheEshop E-commerce API</h3>
-                            <span class="bg-green-900 text-green-200 text-xs font-semibold px-2 py-1 rounded-full border border-green-800">live</span>
-                        </div>
-                        <p class="text-gray-400 mb-4 leading-relaxed">
-                        A cutting-edge **Laravel-based eCommerce API** designed for modern, scalable online retail. 
-                        The platform features **secure authentication** with **multi-role support** (Admin, Vendor, Customer), 
-                        enabling granular control over products, orders, and user management. 
-                        It integrates multiple payment gateways including **Stripe, M-Pesa, and PayPal** for seamless transactions. 
-                        Advanced **query and filtering logic** ensures customers can find products quickly and efficiently, 
-                        while **AI-powered recommendations** personalize the shopping experience to boost engagement and conversions.
-                        </p>
-
-                    </div>
-                    <div class="mt-4">
-                        <div class="flex items-center space-x-4 mb-4">
-                            <a href="theeshop.html" target="_blank" class="flex items-center space-x-1 text-white hover-neon transition duration-300 text-sm">
-                                <i class="ri-play-circle-line text-lg"></i>
-                                <span>Live Demo</span>
-                            </a>
-                            <a href="https://github.com/uncleBandit/LaravelApi.git" target="_blank" class="flex items-center space-x-1 text-white hover-neon transition duration-300 text-sm">
-                                <i class="ri-github-fill text-lg"></i>
-                                <span>Codebase</span>
-                            </a>
-                        </div>
-                        <p class="text-xs font-semibold text-gray-500">_TECH STACK //</p>
-                        <ul class="flex flex-wrap gap-2 mt-1">
-                            <li class="bg-blue-900 text-blue-200 px-3 py-1 rounded-full text-xs">Laravel</li>
-                            <li class="bg-green-900 text-green-200 px-3 py-1 rounded-full text-xs">Vue.js</li>
-                            <li class="bg-indigo-900 text-indigo-200 px-3 py-1 rounded-full text-xs">Tailwind CSS</li>
-                            <li class="bg-teal-900 text-teal-200 px-3 py-1 rounded-full text-xs">Inertia.js</li>
-                        </ul>
-                    </div>
-                </div>
-
-
-
-                <div class="card-glass rounded-xl shadow-lg p-8 flex flex-col justify-between transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:border-neon">
-                    <div>
-                        <div class="flex justify-between items-center mb-2">
-                           <a href="plumrum.html" class="text-xl font-bold text-neon hover:underline" title="Click to view project details">
-                                PlumRum <i class="ri-arrow-right-up-line text-sm"></i>
-                            </a>
-
-                            <span class="bg-green-900 text-green-200 text-xs font-semibold px-2 py-1 rounded-full border border-green-800">Live</span>
-                        </div>
-                        <p class="text-gray-400 mb-4 leading-relaxed">A scalable eCommerce system with real-time analytics and multiple payment integrations, including M-Pesa, Stripe, and PayPal.</p>
-                    </div>
-                    <div class="mt-4">
-                        <div class="flex items-center space-x-4 mb-4">
-                            <a href="http://plumrum.unclecanvas.com/" target="_blank" class="flex items-center space-x-1 text-white hover-neon transition duration-300 text-sm">
-                                <i class="ri-play-circle-line text-lg"></i>
-                                <span>Live Demo</span>
-                            </a>
-                            <a href="https://github.com/uncleBandit/PlumRum" target="_blank" class="flex items-center space-x-1 text-white hover-neon transition duration-300 text-sm">
-                                <i class="ri-github-fill text-lg"></i>
-                                <span>Codebase</span>
-                            </a>
-                        </div>
-                        <p class="text-xs font-semibold text-gray-500">_TECH STACK //</p>
-                        <ul class="flex flex-wrap gap-2 mt-1">
-                            <li class="bg-blue-900 text-blue-200 px-3 py-1 rounded-full text-xs">Laravel</li>
-                            <li class="bg-green-900 text-green-200 px-3 py-1 rounded-full text-xs">Vue.js</li>
-                            <li class="bg-indigo-900 text-indigo-200 px-3 py-1 rounded-full text-xs">Inertia.js</li>
-                            <li class="bg-teal-900 text-teal-200 px-3 py-1 rounded-full text-xs">Tailwind CSS</li>
-                        </ul>
-                    </div>
-                </div>
-
-
-
-                <div class="card-glass rounded-xl shadow-lg p-8 flex flex-col justify-between transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:border-neon">
-                    <div>
-                        <div class="flex justify-between items-center mb-2">
-                            <h3 class="text-xl font-bold text-neon">GymBro</h3>
-                            <span class="bg-yellow-900 text-yellow-200 text-xs font-semibold px-2 py-1 rounded-full border border-yellow-800">In Dev</span>
-                        </div>
-                        <p class="text-gray-400 mb-4 leading-relaxed">A cross-platform fitness tracker analyzing biometrics with real-time feedback and intelligent zone tracking.</p>
-                    </div>
-                    <div class="mt-4">
-                        <div class="flex items-center space-x-4 mb-4">
-                            <a href="https://livedemo-link.com" target="_blank" class="flex items-center space-x-1 text-white hover-neon transition duration-300 text-sm">
-                                <i class="ri-play-circle-line text-lg"></i>
-                                <span>Live Demo</span>
-                            </a>
-                            <a href="https://github.com/uncleBandit/GymBro" target="_blank" class="flex items-center space-x-1 text-white hover-neon transition duration-300 text-sm">
-                                <i class="ri-github-fill text-lg"></i>
-                                <span>Codebase</span>
-                            </a>
-                        </div>
-                        <p class="text-xs font-semibold text-gray-500">_TECH STACK //</p>
-                        <ul class="flex flex-wrap gap-2 mt-1">
-                            <li class="bg-orange-900 text-orange-200 px-3 py-1 rounded-full text-xs">Kotlin Multiplatform</li>
-                            <li class="bg-purple-900 text-purple-200 px-3 py-1 rounded-full text-xs">Jetpack Compose</li>
-                            <li class="bg-yellow-900 text-yellow-200 px-3 py-1 rounded-full text-xs">Firebase</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="card-glass rounded-xl shadow-lg p-8 flex flex-col justify-between transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:border-neon">
-                    <div>
-                        <div class="flex justify-between items-center mb-2">
-                            <h3 class="text-xl font-bold text-neon">OPENPROJECT EXTENSION</h3>
-                            <span class="bg-red-900 text-red-200 text-xs font-semibold px-2 py-1 rounded-full border border-red-800">Offline</span>
-                        </div>
-                        <p class="text-gray-400 mb-4 leading-relaxed">Engineered and deployed a custom plugin to enhance project management functionality within Dockerized environments.</p>
-                    </div>
-                    <div class="mt-4">
-                        <div class="flex items-center space-x-4 mb-4">
-                            <a href="https://livedemo-link.com" target="_blank" class="flex items-center space-x-1 text-white hover-neon transition duration-300 text-sm">
-                                <i class="ri-play-circle-line text-lg"></i>
-                                <span>Live Demo</span>
-                            </a>
-                            <a href="https://github.com/uncleBandit/ThePlugin" target="_blank" class="flex items-center space-x-1 text-white hover-neon transition duration-300 text-sm">
-                                <i class="ri-github-fill text-lg"></i>
-                                <span>Codebase</span>
-                            </a>
-                        </div>
-                        <p class="text-xs font-semibold text-gray-500">_TECH STACK //</p>
-                        <ul class="flex flex-wrap gap-2 mt-1">
-                            <li class="bg-red-900 text-red-200 px-3 py-1 rounded-full text-xs">Ruby</li>
-                            <li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-xs">Docker</li>
-                            <li class="bg-blue-900 text-blue-200 px-3 py-1 rounded-full text-xs">OpenProject API</li>
-                        </ul>
-                    </div>
-                </div>
-
-                
-
-                <div class="card-glass rounded-xl shadow-lg p-8 flex flex-col justify-between transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl hover:border-neon">
-                    <div>
-                        <div class="flex justify-between items-center mb-2">
-                            <h3 class="text-xl font-bold text-neon">FASTAPI LLM ASSISTANT</h3>
-                            <span class="bg-red-900 text-red-200 text-xs font-semibold px-2 py-1 rounded-full border border-red-800">Offline</span>
-                        </div>
-                        <p class="text-gray-400 mb-4 leading-relaxed">A lightweight, conversational AI assistant built using FastAPI, enabling natural language queries with secure API handling.</p>
-                    </div>
-                    <div class="mt-4">
-                        <div class="flex items-center space-x-4 mb-4">
-                            <a href="https://livedemo-link.com" target="_blank" class="flex items-center space-x-1 text-white hover-neon transition duration-300 text-sm">
-                                <i class="ri-play-circle-line text-lg"></i>
-                                <span>Live Demo</span>
-                            </a>
-                            <a href="https://github.com/uncleBandit/The-LLM-" target="_blank" class="flex items-center space-x-1 text-white hover-neon transition duration-300 text-sm">
-                                <i class="ri-github-fill text-lg"></i>
-                                <span>Codebase</span>
-                            </a>
-                        </div>
-                        <p class="text-xs font-semibold text-gray-500">_TECH STACK //</p>
-                        <ul class="flex flex-wrap gap-2 mt-1">
-                            <li class="bg-yellow-900 text-yellow-200 px-3 py-1 rounded-full text-xs">FastAPI</li>
-                            <li class="bg-gray-800 text-gray-200 px-3 py-1 rounded-full text-xs">Python</li>
-                            <li class="bg-blue-900 text-blue-200 px-3 py-1 rounded-full text-xs">Docker</li>
-                            <li class="bg-teal-900 text-teal-200 px-3 py-1 rounded-full text-xs">JavaScript</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="skills" class="max-w-6xl mx-auto px-6 py-20 z-10 relative">
-        <h2 class="text-3xl font-bold mb-12 text-center text-neon">>>> CORE DIRECTIVES</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div>
-                <h3 class="text-2xl font-semibold mb-4 text-neon">TECH & PROTOCOLS</h3>
-                <div class="flex flex-wrap gap-3">
-                    <span class="bg-gray-800 text-gray-300 px-4 py-2 rounded-full font-medium shadow-sm border border-gray-700">Laravel / PHP</span>
-                    <span class="bg-gray-800 text-gray-300 px-4 py-2 rounded-full font-medium shadow-sm border border-gray-700">Vue.js</span>
-                    <span class="bg-gray-800 text-gray-300 px-4 py-2 rounded-full font-medium shadow-sm border border-gray-700">Kotlin Multiplatform</span>
-                    <span class="bg-gray-800 text-gray-300 px-4 py-2 rounded-full font-medium shadow-sm border border-gray-700">Jetpack Compose</span>
-                    <span class="bg-gray-800 text-gray-300 px-4 py-2 rounded-full font-medium shadow-sm border border-gray-700">FastAPI / Python</span>
-                    <span class="bg-gray-800 text-gray-300 px-4 py-2 rounded-full font-medium shadow-sm border border-gray-700">Firebase</span>
-                    <span class="bg-gray-800 text-gray-300 px-4 py-2 rounded-full font-medium shadow-sm border border-gray-700">Docker & CI/CD</span>
-                </div>
-            </div>
-            <div>
-                <h3 class="text-2xl font-semibold mb-4 text-neon">METHODOLOGY & LEADERSHIP</h3>
-                <ul class="list-disc pl-6 text-gray-400 space-y-2">
-                    <li>Full-Stack Solution Architecture (Laravel, Kotlin, Vue, APIs)</li>
-                    <li>Agile & DevOps Integration with CI/CD best practices</li>
-                    <li>Stakeholder Communication, Mentorship & Team Alignment</li>
-                    <li>Data-Driven Planning & Scalable System Design</li>
-                    <li>Analytical Problem Solving across Web & Mobile Platforms</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="bg-gray-900 text-white py-20 z-10 relative">
-        <div class="max-w-4xl mx-auto text-center px-6">
-            <h2 class="text-3xl font-bold mb-6 text-neon">>>> INITIATE CONNECTION</h2>
-            <p class="text-lg mb-8 text-gray-400">If our objectives align, let’s converge. Access my data streams or transmit a direct message.</p>
-            <div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0 md:space-x-8">
-                <a href="mailto:pitmwania@gmail.com" class="flex items-center space-x-2 text-white hover-neon transition duration-300">
-                    <i class="ri-mail-line text-2xl"></i>
-                    <span>pitmwania@gmail.com</span>
-                </a>
-                <a href="https://github.com/uncleBandit" target="_blank" class="flex items-center space-x-2 text-white hover-neon transition duration-300">
-                    <i class="ri-github-fill text-2xl"></i>
-                    <span>github.com/uncleBandit</span>
-                </a>
-                <a href="https://www.linkedin.com/in/peter-mwania-893375113/" target="_blank" class="flex items-center space-x-2 text-white hover-neon transition duration-300">
-                    <i class="ri-linkedin-fill text-2xl"></i>
-                    <span>linkedin.com/in/peter-mwania</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <footer class="text-center py-6 text-gray-600 bg-gray-950 z-10 relative">
-        <p>TERMINAL LOG: 2025. PETER.MWANIA. ALL RIGHTS RESERVED_</p>
-    </footer>
-
-    <script>
-        // Hero text animation
-        document.addEventListener("DOMContentLoaded", () => {
-            const glitchText = document.querySelector(".glitch");
-            setTimeout(() => {
-                glitchText.style.animation = "glitch-anim 2s infinite linear alternate-reverse, glitch-anim2 2s infinite linear alternate-reverse";
-            }, 1000);
-        });
-
-        // Typing Effect for Manifesto
-        const manifestoText = `
-            <p>I am **Peter Mwania Mwendwa**, a **digital architect** who builds immersive realities. Specializing in **Laravel, Kotlin**, and modern **JavaScript frameworks**, I craft systems that don't just solve problems; they anticipate them. My work is a synthesis of art and science—transforming raw logic into elegant, scalable platforms.</p>
-            <p class="mt-4">My foundation in **backend architecture, APIs**, and **cloud deployment** allows me to bridge the void between front-end aesthetics and core functionality. I navigate the complex data streams of **fintech, eCommerce, and AI**, architecting solutions that balance innovation with unwavering performance.</p>
-            <p class="mt-4">I am driven by a singular purpose: to **transcend code** and create impactful solutions. I believe in the power of **Clean Architecture, DevOps culture, and real-time interactivity**. My objective is simple: to transform abstract concepts into tangible, high-impact digital products.</p>
-        `;
-
-        const typingSpeed = 25; // in milliseconds
-        let charIndex = 0;
-        const targetElement = document.getElementById("manifesto-text");
-        const tempElement = document.createElement("div");
-
-        function typeWriter() {
-            if (charIndex < manifestoText.length) {
-                const char = manifestoText.charAt(charIndex);
-                if (char === '<') {
-                    // Find the end of the HTML tag
-                    const endTagIndex = manifestoText.indexOf('>', charIndex);
-                    if (endTagIndex !== -1) {
-                        tempElement.innerHTML += manifestoText.substring(charIndex, endTagIndex + 1);
-                        charIndex = endTagIndex + 1;
-                    }
-                } else {
-                    tempElement.innerHTML += char;
-                    charIndex++;
-                }
-
-                targetElement.innerHTML = tempElement.innerHTML + '<span class="typing-cursor"></span>';
-                setTimeout(typeWriter, typingSpeed);
-            } else {
-                targetElement.innerHTML = tempElement.innerHTML;
-            }
-        }
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    typeWriter();
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-        observer.observe(document.getElementById("profile"));
-
-        // tsParticles Configuration
-        tsParticles.load("tsparticles", {
-            "fullScreen": { "enable": true, "zIndex": -1 },
-            "particles": {
-                "number": { "value": 80 },
-                "color": { "value": "#0ef0f0" },
-                "shape": { "type": "circle" },
-                "opacity": { "value": 0.5, "random": false },
-                "size": { "value": 2, "random": true },
-                "links": {
-                    "enable": true,
-                    "distance": 150,
-                    "color": "#0ef0f0",
-                    "opacity": 0.4,
-                    "width": 1
-                },
-                "move": {
-                    "enable": true,
-                    "speed": 1.5,
-                    "direction": "none",
-                    "random": false,
-                    "straight": false,
-                    "outModes": {
-                        "default": "out"
-                    }
-                }
-            },
-            "interactivity": {
-                "events": {
-                    "onHover": {
-                        "enable": true,
-                        "mode": "repulse"
-                    },
-                    "onClick": {
-                        "enable": true,
-                        "mode": "push"
-                    },
-                    "resize": true
-                },
-                "modes": {
-                    "repulse": {
-                        "distance": 100,
-                        "duration": 0.4
-                    },
-                    "push": {
-                        "quantity": 4
-                    }
-                }
-            },
-            "retina_detect": true
-        });
-        
-        // Mobile Menu Script
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuBtn = document.querySelector('button.md\\:hidden');
-            const menu = document.querySelector('nav > div.hidden.md\\:flex');
-            menuBtn.addEventListener('click', () => {
-                menu.classList.toggle('hidden');
-                menu.classList.toggle('flex');
-                menu.classList.toggle('flex-col');
-                menu.classList.toggle('absolute');
-                menu.classList.toggle('top-16');
-                menu.classList.toggle('bg-black');
-                menu.classList.toggle('p-4');
-                menu.classList.toggle('rounded-lg');
-                menu.classList.toggle('shadow-md');
-                menu.classList.toggle('w-full');
-                menu.classList.toggle('left-0');
-            });
-        });
-
-        //Product fetching script for the api 
-         async function fetchProducts() {
-      try {
-        const res = await fetch('http://theeshop.unclecanvas.com/api/v1/products');
-        const data = await res.json();
-        const list = document.getElementById('product-list');
-        list.innerHTML = data.data.map(p => `<li>${p.name} - $${p.price}</li>`).join('');
-      } catch(e) {
-        console.error("Failed to fetch products", e);
+  <!-- Tailwind Play CDN for quick prototyping -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Tailwind config shortcuts */
+    @layer utilities {
+      .glass {
+        backdrop-filter: blur(6px);
+        background: rgba(255,255,255,0.04);
       }
     }
-    fetchProducts();
-    </script>
+
+    /* Subtle reveal animation */
+    .reveal { opacity: 0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal.show { opacity: 1; transform: translateY(0); }
+
+    /* Floating sticky CTA */
+    .floating-cta { box-shadow: 0 10px 30px rgba(14,30,60,0.25); }
+
+    /* Decorative gradient shapes */
+    .hero-shape { mix-blend-mode: screen; opacity: .95; }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 antialiased">
+
+  <!-- NAVBAR -->
+  <header class="fixed inset-x-0 top-0 z-40">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-sky-400 to-orange-400 flex items-center justify-center font-bold text-slate-900">PM</div>
+        <div class="hidden sm:block">
+          <div class="text-lg font-semibold">Peter Mwania</div>
+          <div class="text-xs text-slate-400">Full‑Stack Engineer</div>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex gap-6 items-center text-slate-200">
+        <a href="#projects" class="hover:text-white transition">Projects</a>
+        <a href="#about" class="hover:text-white transition">About</a>
+        <a href="#skills" class="hover:text-white transition">Skills</a>
+        <a href="#contact" class="hover:text-white transition">Contact</a>
+        <a href="#" class="ml-2 px-4 py-2 rounded-full bg-gradient-to-r from-sky-400 to-orange-400 text-slate-900 font-semibold">Resume</a>
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <div class="md:hidden">
+        <button id="menuBtn" class="p-2 rounded-md glass">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-100" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Nav Drawer -->
+    <div id="mobileNav" class="hidden bg-slate-900/90 border-t border-slate-800">
+      <div class="px-6 py-4 flex flex-col gap-3">
+        <a href="#projects" class="py-2">Projects</a>
+        <a href="#about" class="py-2">About</a>
+        <a href="#skills" class="py-2">Skills</a>
+        <a href="#contact" class="py-2">Contact</a>
+        <a href="#" class="py-2 rounded-md bg-gradient-to-r from-sky-400 to-orange-400 text-slate-900 text-center font-semibold">Resume</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-24">
+
+    <!-- HERO -->
+   <section class="relative overflow-hidden">
+  <div class="max-w-6xl mx-auto px-6 py-20 lg:py-28 flex flex-col lg:flex-row items-center gap-12">
+
+    <!-- Left: text -->
+    <div class="w-full lg:w-1/2">
+      <p class="text-sm font-medium text-orange-300 mb-3">AI-Driven • Full-Stack • Mobile • Fintech</p>
+      <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight tracking-tight text-white">
+        Hi, I’m 
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-sky-300 to-orange-300">
+          Peter Mwania
+        </span>
+      </h1>
+      <p class="mt-4 text-lg text-slate-300">
+        Solutions Engineer building intelligent, modular, and human-centric applications across
+        web and mobile ecosystems.
+      </p>
+
+      <div class="mt-6 flex gap-4">
+        <a href="#contact" class="px-5 py-3 rounded-full font-semibold bg-gradient-to-r from-sky-400 to-orange-400 text-slate-900 shadow-lg hover:scale-105 transform transition">
+          Hire Me
+        </a>
+        <a href="#projects" class="px-5 py-3 rounded-full border border-slate-700 text-slate-200 hover:bg-slate-800 transition">
+          View Projects
+        </a>
+      </div>
+
+      <!-- quick highlights -->
+      <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <!-- Experience -->
+        <div class="p-4 bg-slate-800/50 rounded-lg">
+          <div class="text-sm text-slate-300">Experience</div>
+          <div class="mt-1 text-xl font-semibold text-white">2+ yrs</div>
+          <p class="mt-1 text-slate-400 text-sm">Full-stack & AI-driven solutions</p>
+        </div>
+
+        <!-- Top Domain -->
+        <div class="p-4 bg-slate-800/50 rounded-lg">
+          <div class="text-sm text-slate-300">Top Domain</div>
+          <div class="mt-1 text-xl font-semibold text-white">Solutions Engineer</div>
+          <p class="mt-1 text-slate-400 text-sm">
+            Bridging AI, backend systems, and UX.
+          </p>
+        </div>
+
+        <!-- Open Source -->
+        <div class="p-4 bg-slate-800/50 rounded-lg">
+          <div class="text-sm text-slate-300">Open Source</div>
+          <div class="mt-1 text-xl font-semibold text-white">
+            Laravel • Kotlin • Next.js
+          </div>
+          <p class="mt-1 text-slate-400 text-sm">
+            Crafting reusable, intelligent, and modular systems.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: portrait + decorative shapes -->
+    <div class="w-full lg:w-1/2 flex justify-center lg:justify-end">
+      <div class="relative w-72 h-72 sm:w-80 sm:h-80 rounded-3xl overflow-hidden shadow-2xl">
+        <div class="absolute inset-0 bg-gradient-to-br from-sky-500 to-orange-400 hero-shape"></div>
+        <!-- Replace with your real photo -->
+        <img src="assets/Gemini_Generated_Image_84uc4584uc4584uc.png" alt="Peter Mwania" class="object-cover w-full h-full mix-blend-overlay" />
+        <div class="absolute bottom-4 left-4 p-2 bg-slate-900/70 rounded-md text-sm">
+          Full-Stack Engineer
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- decorative SVG blobs -->
+  <svg class="absolute right-0 top-12 w-64 h-64 opacity-30" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="g1" x1="0" x2="1">
+        <stop offset="0" stop-color="#0ea5e9"/>
+        <stop offset="1" stop-color="#fb923c"/>
+      </linearGradient>
+    </defs>
+    <path fill="url(#g1)" d="M44.8,-55.7C60.8,-46.5,76.2,-33.2,78.4,-17.3C80.7,-1.5,69.9,16.7,58.2,31.7C46.6,46.8,34.1,59.8,18.7,66.3C3.3,72.8,-15,72.8,-30.6,66.8C-46.3,60.8,-59.2,48.9,-66.7,33.8C-74.2,18.7,-76.2,0.5,-71.9,-16.1C-67.6,-32.7,-57.1,-48,-42.6,-57.2C-28.1,-66.4,-14.1,-69.6,1.4,-71.8C16.8,-74,33.6,-75,44.8,-55.7Z" transform="translate(100 100)"/>
+  </svg>
+</section>
+
+
+    <!-- PROJECTS -->
+    <section id="projects" class="max-w-6xl mx-auto px-6 py-16">
+      <div class="mb-8">
+        <h2 class="text-2xl font-bold">Featured Projects</h2>
+        <p class="text-slate-400 mt-2">Selected case studies — problems, my role, and measurable outcomes.</p>
+      </div>
+
+      <div class="grid gap-6 lg:grid-cols-3">
+      <!-- HolidayHub -->
+      <article class="bg-gradient-to-br from-slate-800/60 to-slate-900 rounded-2xl p-5 reveal" data-delay="0">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <h3 class="text-xl font-semibold">HolidayHub</h3>
+            <div class="text-sm text-slate-400 mt-1">Multi-destination travel booking platform</div>
+          </div>
+          <div class="text-xs px-3 py-1 rounded-full bg-slate-700 text-slate-200">Laravel · Vue.js · Firebase</div>
+        </div>
+
+        <p class="mt-4 text-slate-300">
+          <strong>Role:</strong> Lead Full-Stack Developer — designed and built the full booking platform, from REST APIs to the front-end interface.  
+          <br>
+          <strong>Problem:</strong> Travelers faced fragmented booking experiences across destinations and services.
+        </p>
+
+        <ul class="mt-3 text-sm text-slate-400 space-y-1">
+          <li>• Improved booking completion rates by 28% through simplified multi-step flow.</li>
+          <li>• Integrated secure payment and email confirmation workflows.</li>
+          <li>• Deployed Firebase analytics to track user drop-offs and optimize UX.</li>
+        </ul>
+
+        <div class="mt-4 flex gap-3">
+          <a href="https://holidayhub.unclecanvas.com/" target="_blank" class="px-3 py-2 bg-sky-500/20 border border-sky-400 rounded-md text-sm hover:bg-sky-500/30 transition">Live Demo</a>
+          <a href="holidayhub.html" class="px-3 py-2 bg-slate-800/40 border border-slate-700 rounded-md text-sm hover:bg-slate-700/60 transition">Case Study</a>
+        </div>
+      </article>
+
+
+        <!-- PlumRum -->
+        <!-- PlumRum -->
+        <article class="bg-gradient-to-br from-slate-800/60 to-slate-900 rounded-2xl p-5 reveal" data-delay="100">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h3 class="text-xl font-semibold">PlumRum</h3>
+              <div class="text-sm text-slate-400 mt-1">Multi-role eCommerce ecosystem</div>
+            </div>
+            <div class="text-xs px-3 py-1 rounded-full bg-slate-700 text-slate-200">Laravel · Vue.js · MySQL</div>
+          </div>
+
+          <p class="mt-4 text-slate-300">
+            <strong>Role:</strong> Lead Full-Stack Developer — built an integrated web platform connecting customers, vendors, and delivery partners.  
+            <br>
+            <strong>Problem:</strong> Local businesses lacked a unified marketplace that streamlined orders, deliveries, and admin management.
+          </p>
+
+          <ul class="mt-3 text-sm text-slate-400 space-y-1">
+            <li>• Developed a role-based ecosystem with dashboards for customers, vendors, and admins.</li>
+            <li>• Implemented inventory, order tracking, and analytics in a unified admin interface.</li>
+            <li>• Integrated multiple payment methods and live delivery tracking for transparency.</li>
+            <li>• Enabled delivery businesses to onboard, creating jobs and service efficiency.</li>
+          </ul>
+
+          <div class="mt-4 flex gap-3">
+            <a href="https://plumrum.unclecanvas.com/" class="px-3 py-2 bg-sky-500/20 border border-sky-400 rounded-md text-sm hover:bg-sky-500/30 transition">Live Demo</a>
+            <a href="plumrum.html" class="px-3 py-2 bg-slate-800/40 border border-slate-700 rounded-md text-sm hover:bg-slate-700/60 transition">Case Study</a>
+          </div>
+        </article>
+
+
+        <!-- The Eshop API -->
+        <article class="bg-gradient-to-br from-slate-800/60 to-slate-900 rounded-2xl p-5 reveal" data-delay="200">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h3 class="text-xl font-semibold">The Eshop API</h3>
+              <div class="text-sm text-slate-400 mt-1">Modular eCommerce backend</div>
+            </div>
+            <div class="text-xs px-3 py-1 rounded-full bg-slate-700 text-slate-200">Laravel • Docker</div>
+          </div>
+
+          <p class="mt-4 text-slate-300">Problem: Multiple stores needed a unified API. <br> Role: Architect & implementer.</p>
+
+          <ul class="mt-3 text-sm text-slate-400 space-y-1">
+            <li>• Built modular architecture enabling multi-tenant product sync.</li>
+            <li>• Reduced API response times by 42% with caching & query tuning.</li>
+          </ul>
+
+          <div class="mt-4 flex gap-3">
+            <a class="px-3 py-2 bg-sky-500/20 border border-sky-400 rounded-md text-sm">API Docs</a>
+            <a class="px-3 py-2 bg-slate-800/40 border border-slate-700 rounded-md text-sm">GitHub</a>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- More projects link -->
+      <div class="mt-8 text-center">
+        <a href="projects.html" class="inline-block px-6 py-3 rounded-full bg-gradient-to-r from-sky-400 to-orange-400 text-slate-900 font-semibold">See more projects</a>
+      </div>
+
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="bg-slate-900 border-t border-slate-800">
+      <div class="max-w-4xl mx-auto px-6 py-16 grid lg:grid-cols-2 gap-8">
+        <div>
+          <h2 class="text-2xl font-bold">About me</h2>
+          <p class="mt-4 text-slate-300">I am a Full-Stack Software Engineer focused on building reliable, performance-driven systems across web and mobile platforms. My passion lies in taking complex challenges—like multi-role financial transactions and secure data flows—and transforming them into clear, scalable architecture. I deliver performant solutions, such as my Laravel-based travel and e-commerce platforms, that genuinely simplify user experiences.</p>
+
+          <ul class="mt-6 space-y-2 text-slate-400">
+            <li>• 2+ years building production apps for web & mobile</li>
+            <li>• Strong focus on backend architecture and system reliability</li>
+            <li>• Comfortable leading small engineering teams & mentoring</li>
+          </ul>
+
+          <div class="mt-6 flex gap-3">
+            <a href="#contact" class="px-4 py-2 rounded-md bg-sky-400/20 border border-sky-400">Let’s talk</a>
+            <a href="#" class="px-4 py-2 rounded-md border border-slate-700">Download resume</a>
+          </div>
+        </div>
+
+       <div class="p-6 bg-gradient-to-br from-slate-800/50 to-slate-900 rounded-2xl">
+          <h3 class="text-lg font-semibold">Approach & Impact</h3>
+          <p class="mt-3 text-slate-300">
+            I engineer modular, human-centered systems that scale across web and mobile. My process blends rapid prototyping with structured iteration — from defining core architecture to refining user experience through real data. 
+            I value clean abstractions, measurable impact, and seamless integration between products and people.
+          </p>
+
+          <div class="mt-4 grid grid-cols-2 gap-4">
+            <div class="p-3 bg-slate-800/60 rounded-lg">
+              <div class="text-xs text-slate-400">Architecture</div>
+              <div class="mt-1 font-semibold">Clean Architecture • Modular Systems</div>
+            </div>
+            <div class="p-3 bg-slate-800/60 rounded-lg">
+              <div class="text-xs text-slate-400">Backend</div>
+              <div class="mt-1 font-semibold">Laravel • Kotlin • Firebase • RESTful APIs</div>
+            </div>
+            <div class="p-3 bg-slate-800/60 rounded-lg">
+              <div class="text-xs text-slate-400">Frontend</div>
+              <div class="mt-1 font-semibold">Vue.js • React • Jetpack Compose • Livewire</div>
+            </div>
+            <div class="p-3 bg-slate-800/60 rounded-lg">
+              <div class="text-xs text-slate-400">DevOps</div>
+              <div class="mt-1 font-semibold">Docker • CI/CD • Firebase Hosting</div>
+            </div>
+            <div class="p-3 bg-slate-800/60 rounded-lg">
+              <div class="text-xs text-slate-400">Domain Focus</div>
+              <div class="mt-1 font-semibold">eCommerce • Fintech • AI-Driven Fitness</div>
+            </div>
+            <div class="p-3 bg-slate-800/60 rounded-lg">
+              <div class="text-xs text-slate-400">Core Strength</div>
+              <div class="mt-1 font-semibold">Systems Integration & User Experience</div>
+            </div>
+          </div>
+        </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="max-w-6xl mx-auto px-6 py-16">
+      <h2 class="text-2xl font-bold mb-4">Skills Snapshot</h2>
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="p-4 bg-slate-800/50 rounded-lg">
+          <div class="text-sm text-slate-400">Frontend</div>
+          <div class="mt-2 font-semibold">React • Vue.js • Jetpack Compose • Next.js</div>
+        </div>
+        <div class="p-4 bg-slate-800/50 rounded-lg">
+          <div class="text-sm text-slate-400">Backend</div>
+          <div class="mt-2 font-semibold">Laravel • Node.js • Kotlin</div>
+        </div>
+        <div class="p-4 bg-slate-800/50 rounded-lg">
+          <div class="text-sm text-slate-400">Data & DB</div>
+          <div class="mt-2 font-semibold">MySQL • Postgres • SqlLite</div>
+        </div>
+        <div class="p-4 bg-slate-800/50 rounded-lg">
+          <div class="text-sm text-slate-400">Tools</div>
+          <div class="mt-2 font-semibold">Docker • CI/CD • GitHub</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="bg-slate-900 border-t border-slate-800">
+      <div class="max-w-4xl mx-auto px-6 py-16">
+        <h2 class="text-2xl font-bold">Get in touch</h2>
+        <p class="text-slate-400 mt-2">Open for full-time roles & exciting fintech projects. Tell me about your needs — I’ll respond quickly.</p>
+
+        <div class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <form id ="contactUs"class="space-y-4" >
+            <input class="w-full p-3 rounded-md bg-slate-800 border border-slate-700" placeholder="Your name" required />
+            <input class="w-full p-3 rounded-md bg-slate-800 border border-slate-700" placeholder="Email" type="email" required />
+            <input class="w-full p-3 rounded-md bg-slate-800 border border-slate-700" placeholder="Subject" />
+            <textarea class="w-full p-3 rounded-md bg-slate-800 border border-slate-700" rows="5" placeholder="Message..." required></textarea>
+            <div>
+              <button class="px-5 py-3 rounded-full bg-gradient-to-r from-sky-400 to-orange-400 text-slate-900 font-semibold">Send message</button>
+            </div>
+          </form>
+
+          <div class="p-6 bg-gradient-to-br from-slate-800/60 to-slate-900 rounded-2xl">
+            <h3 class="font-semibold">Prefer email?</h3>
+            <p class="mt-2 text-slate-400">pitmwania@gmail.com</p>
+
+            <div class="mt-6">
+              <h4 class="text-sm text-slate-400">Find me</h4>
+              <ul class="mt-3 space-y-2 text-slate-300">
+                <li>GitHub: <a href="https://github.com/uncleBandit" class="text-sky-300">github.com/unclebandit</a></li>
+                <li>LinkedIn: <a href="www.linkedin.com/in/peter-mwania-893375113" class="text-sky-300">linkedin.com/in/petermwania</a></li>
+              </ul>
+            </div>
+
+            <div class="mt-6 text-slate-400 text-sm">Open to relocation & remote roles.</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="max-w-6xl mx-auto px-6 py-8 text-slate-400 text-sm">
+      <div class="flex items-center justify-between">
+        <div>© 2025 Peter Mwania</div>
+        <div>Built with care • <span class="text-sky-300">Full‑Stack</span></div>
+      </div>
+    </footer>
+
+  </main>
+
+  <!-- Floating CTA for mobile/desktop -->
+  <a href="#contact" class="hidden md:flex fixed right-6 bottom-8 px-4 py-3 rounded-full floating-cta bg-gradient-to-r from-sky-400 to-orange-400 text-slate-900 font-semibold">Hire me</a>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    (function(){
+      emailjs.init("l2zxFBKKJS1ieR7ht"); // Replace with your EmailJS public key
+    })();
+    document.getElementById('contactUs').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      emailjs.sendForm('service_1uo5c0a', 'template_ex0y6h2', this) // Replace with your EmailJS service ID and template ID
+        .then(function() {
+          alert('Message sent successfully!');
+        }, function(error) {
+          alert('Failed to send message. Please try again later.');
+          console.log('FAILED...', error);
+        });
+      this.reset(); // Reset the form after submission
+    });
+  </script>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    menuBtn?.addEventListener('click', () => {
+      mobileNav.classList.toggle('hidden');
+    });
+
+    // simple reveal on scroll
+    function reveal() {
+      document.querySelectorAll('.reveal').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight - 60) el.classList.add('show');
+      });
+    }
+    window.addEventListener('scroll', reveal);
+    window.addEventListener('load', reveal);
+  </script>
 </body>
 </html>

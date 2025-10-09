@@ -1,0 +1,737 @@
+openapi: 3.0.1
+info:
+  title: HolidayHub / PlumRum API
+  version: 1.0.0
+  description: 'Generated OpenAPI spec for API v1 (derived from code). Auth: Laravel
+    Sanctum (Bearer token).'
+servers:
+- url: /api/v1
+  description: Base path (relative)
+components:
+  securitySchemes:
+    sanctumAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Use 'Bearer {token}'
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+    Customer:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        price:
+          type: number
+        stock:
+          type: integer
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+        total:
+          type: number
+        status:
+          type: string
+    Invoice:
+      type: object
+      properties:
+        id:
+          type: integer
+        amount:
+          type: number
+        status:
+          type: string
+    Cart:
+      type: object
+      properties:
+        id:
+          type: integer
+        items:
+          type: array
+          items:
+            type: object
+paths:
+  /customer:
+    get:
+      tags:
+      - customer
+      summary: List customer
+      responses:
+        '200':
+          description: OK
+    post:
+      tags:
+      - customer
+      summary: Create customer
+      responses:
+        '201':
+          description: Created
+  /customer/{id}:
+    get:
+      tags:
+      - customer
+      summary: Get customer by id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+    put:
+      tags:
+      - customer
+      summary: Update customer
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Updated
+    patch:
+      tags:
+      - customer
+      summary: Patch customer
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags:
+      - customer
+      summary: Delete customer
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Deleted
+  /invoice:
+    get:
+      tags:
+      - invoice
+      summary: List invoice
+      responses:
+        '200':
+          description: OK
+    post:
+      tags:
+      - invoice
+      summary: Create invoice
+      responses:
+        '201':
+          description: Created
+  /invoice/{id}:
+    get:
+      tags:
+      - invoice
+      summary: Get invoice by id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+    put:
+      tags:
+      - invoice
+      summary: Update invoice
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Updated
+    patch:
+      tags:
+      - invoice
+      summary: Patch invoice
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags:
+      - invoice
+      summary: Delete invoice
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Deleted
+  /product:
+    get:
+      tags:
+      - product
+      summary: List product
+      responses:
+        '200':
+          description: OK
+    post:
+      tags:
+      - product
+      summary: Create product
+      responses:
+        '201':
+          description: Created
+  /product/{id}:
+    get:
+      tags:
+      - product
+      summary: Get product by id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+    put:
+      tags:
+      - product
+      summary: Update product
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Updated
+    patch:
+      tags:
+      - product
+      summary: Patch product
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags:
+      - product
+      summary: Delete product
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Deleted
+  /address:
+    get:
+      tags:
+      - address
+      summary: List address
+      responses:
+        '200':
+          description: OK
+    post:
+      tags:
+      - address
+      summary: Create address
+      responses:
+        '201':
+          description: Created
+  /address/{id}:
+    get:
+      tags:
+      - address
+      summary: Get address by id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+    put:
+      tags:
+      - address
+      summary: Update address
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Updated
+    patch:
+      tags:
+      - address
+      summary: Patch address
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags:
+      - address
+      summary: Delete address
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Deleted
+  /order:
+    get:
+      tags:
+      - order
+      summary: List order
+      responses:
+        '200':
+          description: OK
+    post:
+      tags:
+      - order
+      summary: Create order
+      responses:
+        '201':
+          description: Created
+  /order/{id}:
+    get:
+      tags:
+      - order
+      summary: Get order by id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+    put:
+      tags:
+      - order
+      summary: Update order
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Updated
+    patch:
+      tags:
+      - order
+      summary: Patch order
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags:
+      - order
+      summary: Delete order
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Deleted
+  /cart:
+    get:
+      tags:
+      - cart
+      summary: List cart
+      responses:
+        '200':
+          description: OK
+    post:
+      tags:
+      - cart
+      summary: Create cart
+      responses:
+        '201':
+          description: Created
+  /cart/{id}:
+    get:
+      tags:
+      - cart
+      summary: Get cart by id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+    put:
+      tags:
+      - cart
+      summary: Update cart
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Updated
+    patch:
+      tags:
+      - cart
+      summary: Patch cart
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags:
+      - cart
+      summary: Delete cart
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Deleted
+  /payment:
+    get:
+      tags:
+      - payment
+      summary: List payment
+      responses:
+        '200':
+          description: OK
+    post:
+      tags:
+      - payment
+      summary: Create payment
+      responses:
+        '201':
+          description: Created
+  /payment/{id}:
+    get:
+      tags:
+      - payment
+      summary: Get payment by id
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+    put:
+      tags:
+      - payment
+      summary: Update payment
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Updated
+    patch:
+      tags:
+      - payment
+      summary: Patch payment
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags:
+      - payment
+      summary: Delete payment
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '204':
+          description: Deleted
+  /user:
+    get:
+      summary: Get authenticated user
+      security:
+      - sanctumAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+  /login:
+    post:
+      summary: Authenticate user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Auth token
+  /register:
+    post:
+      summary: Register new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '201':
+          description: Created
+  /test-webhook:
+    get:
+      summary: Test webhook endpoint
+      responses:
+        '200':
+          description: OK
+  /webhooks/{gateway}:
+    post:
+      summary: Generic webhook receiver
+      parameters:
+      - name: gateway
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Received
+  /products:
+    get:
+      summary: Public product list
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+  /customer/me:
+    get:
+      summary: Get customer profile
+      security:
+      - sanctumAuth: []
+      responses:
+        '200':
+          description: OK
+    put:
+      summary: Update customer profile
+      security:
+      - sanctumAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+      responses:
+        '200':
+          description: Updated
+    patch:
+      summary: Patch customer profile
+      security:
+      - sanctumAuth: []
+      responses:
+        '200':
+          description: Updated
+  /search:
+    get:
+      summary: Search intelligent
+      parameters:
+      - name: q
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Results
+  /search/suggest:
+    get:
+      summary: Search suggestions
+      parameters:
+      - name: q
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Suggestions
+  /recommendations:
+    get:
+      summary: Personalized recommendations
+      security:
+      - sanctumAuth: []
+      responses:
+        '200':
+          description: OK
+  /payments/status/{invoice}:
+    get:
+      summary: Invoice payment status
+      parameters:
+      - name: invoice
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Status
+  /payment-methods:
+    get:
+      summary: List payment methods
+      responses:
+        '200':
+          description: OK
+  /address/bulk:
+    post:
+      summary: Bulk create addresses
+      security:
+      - sanctumAuth: []
+      responses:
+        '201':
+          description: Created
+  /order/bulk:
+    post:
+      summary: Bulk create orders
+      security:
+      - sanctumAuth: []
+      responses:
+        '201':
+          description: Created
+  /invoice/bulk:
+    post:
+      summary: Bulk create invoices
+      security:
+      - sanctumAuth: []
+      responses:
+        '201':
+          description: Created
+  /product/bulk:
+    post:
+      summary: Bulk create products
+      security:
+      - sanctumAuth: []
+      responses:
+        '201':
+          description: Created
