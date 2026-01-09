@@ -1,429 +1,392 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Peter Mwania — Full‑Stack Engineer | Portfolio</title>
-  <meta name="description" content="Peter Mwania — Full‑Stack Engineer building human‑centric, high‑performance web & mobile apps. Featured work: HolidayHub, PlumRum, TheEshop API." />
+  <title>Peter Mwania | Full‑Stack Engineer & Solutions Architect</title>
+  
+  <meta name="title" content="Peter Mwania | Full‑Stack Engineer Portfolio">
+  <meta name="description" content="Peter Mwania: Full‑Stack Engineer specializing in high-performance web & mobile systems. Architect of HolidayHub, PlumRum, and scalable API ecosystems.">
+  <meta name="keywords" content="Peter Mwania, Full Stack Developer Kenya, Laravel, Vue.js, Fintech Engineer, HolidayHub, PlumRum">
 
-  <!-- Tailwind Play CDN for quick prototyping -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Peter Mwania | Portfolio">
+  <meta property="og:description" content="Engineering human‑centric, high‑performance applications. Featured: HolidayHub & PlumRum.">
+
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    /* Tailwind config shortcuts */
     @layer utilities {
-      .glass {
-        backdrop-filter: blur(6px);
-        background: rgba(255,255,255,0.04);
-      }
+      .glass { backdrop-filter: blur(12px); background: rgba(15, 23, 42, 0.8); }
+      .text-gradient { background: linear-gradient(to right, #38bdf8, #fb923c); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     }
-
-    /* Subtle reveal animation */
-    .reveal { opacity: 0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease; }
+    .reveal { opacity: 0; transform: translateY(20px); transition: all .8s cubic-bezier(0.4, 0, 0.2, 1); }
     .reveal.show { opacity: 1; transform: translateY(0); }
-
-    /* Floating sticky CTA */
-    .floating-cta { box-shadow: 0 10px 30px rgba(14,30,60,0.25); }
-
-    /* Decorative gradient shapes */
-    .hero-shape { mix-blend-mode: screen; opacity: .95; }
+    .project-card:hover { transform: translateY(-5px); border-color: rgba(56, 189, 248, 0.5); }
   </style>
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org/",
+    "@type": "Person",
+    "name": "Peter Mwania",
+    "jobTitle": "Full-Stack Engineer",
+    "url": "https://plumrum.unclecanvas.com/",
+    "sameAs": [
+      "https://github.com/uncleBandit",
+      "https://www.linkedin.com/in/peter-mwania-893375113"
+    ]
+  }
+  </script>
 </head>
-<body class="bg-slate-900 text-slate-100 antialiased">
 
-  <!-- NAVBAR -->
-  <header class="fixed inset-x-0 top-0 z-40">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-sky-400 to-orange-400 flex items-center justify-center font-bold text-slate-900">PM</div>
+<body class="bg-slate-900 text-slate-100 antialiased selection:bg-sky-500/30">
+
+  <header class="fixed inset-x-0 top-0 z-50 glass border-b border-slate-800/50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-400 to-orange-400 flex items-center justify-center font-bold text-slate-900 transform group-hover:rotate-12 transition-all">PM</div>
         <div class="hidden sm:block">
-          <div class="text-lg font-semibold">Peter Mwania</div>
-          <div class="text-xs text-slate-400">Full‑Stack Engineer</div>
+          <span class="text-lg font-bold tracking-tight">Peter Mwania</span>
         </div>
       </a>
 
-      <nav class="hidden md:flex gap-6 items-center text-slate-200">
+      <nav class="hidden md:flex gap-8 items-center font-medium text-slate-300">
         <a href="#projects" class="hover:text-white transition">Projects</a>
-        <a href="#about" class="hover:text-white transition">About</a>
-        <a href="#skills" class="hover:text-white transition">Skills</a>
-        <a href="#contact" class="hover:text-white transition">Contact</a>
-        <a href="#" class="ml-2 px-4 py-2 rounded-full bg-gradient-to-r from-sky-400 to-orange-400 text-slate-900 font-semibold">Resume</a>
+        <a href="#about" class="hover:text-white transition">Architecture</a>
+        <a href="#skills" class="hover:text-white transition">Expertise</a>
+        <a href="#contact" class="px-5 py-2 rounded-full bg-sky-500 text-white font-bold hover:bg-sky-400 transition-all shadow-lg shadow-sky-500/20">Hire Me</a>
       </nav>
 
-      <!-- Mobile Menu Button -->
-      <div class="md:hidden">
-        <button id="menuBtn" class="p-2 rounded-md glass">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-100" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        </button>
-      </div>
-    </div>
-
-    <!-- Mobile Nav Drawer -->
-    <div id="mobileNav" class="hidden bg-slate-900/90 border-t border-slate-800">
-      <div class="px-6 py-4 flex flex-col gap-3">
-        <a href="#projects" class="py-2">Projects</a>
-        <a href="#about" class="py-2">About</a>
-        <a href="#skills" class="py-2">Skills</a>
-        <a href="#contact" class="py-2">Contact</a>
-        <a href="#" class="py-2 rounded-md bg-gradient-to-r from-sky-400 to-orange-400 text-slate-900 text-center font-semibold">Resume</a>
-      </div>
+      <button id="menuBtn" class="md:hidden p-2"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg></button>
     </div>
   </header>
 
-  <main class="pt-24">
-
-    <!-- HERO -->
-   <section class="relative overflow-hidden">
-  <div class="max-w-6xl mx-auto px-6 py-20 lg:py-28 flex flex-col lg:flex-row items-center gap-12">
-
-    <!-- Left: text -->
-    <div class="w-full lg:w-1/2">
-      <p class="text-sm font-medium text-orange-300 mb-3">AI-Driven • Full-Stack • Mobile • Fintech</p>
-      <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight tracking-tight text-white">
-        Hi, I’m 
-        <span class="bg-clip-text text-transparent bg-gradient-to-r from-sky-300 to-orange-300">
-          Peter Mwania
-        </span>
-      </h1>
-      <p class="mt-4 text-lg text-slate-300">
-        Solutions Engineer building intelligent, modular, and human-centric applications across
-        web and mobile ecosystems.
-      </p>
-
-      <div class="mt-6 flex gap-4">
-        <a href="#contact" class="px-5 py-3 rounded-full font-semibold bg-gradient-to-r from-sky-400 to-orange-400 text-slate-900 shadow-lg hover:scale-105 transform transition">
-          Hire Me
-        </a>
-        <a href="#projects" class="px-5 py-3 rounded-full border border-slate-700 text-slate-200 hover:bg-slate-800 transition">
-          View Projects
-        </a>
-      </div>
-
-      <!-- quick highlights -->
-      <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <!-- Experience -->
-        <div class="p-4 bg-slate-800/50 rounded-lg">
-          <div class="text-sm text-slate-300">Experience</div>
-          <div class="mt-1 text-xl font-semibold text-white">2+ yrs</div>
-          <p class="mt-1 text-slate-400 text-sm">Full-stack & AI-driven solutions</p>
-        </div>
-
-        <!-- Top Domain -->
-        <div class="p-4 bg-slate-800/50 rounded-lg">
-          <div class="text-sm text-slate-300">Top Domain</div>
-          <div class="mt-1 text-xl font-semibold text-white">Solutions Engineer</div>
-          <p class="mt-1 text-slate-400 text-sm">
-            Bridging AI, backend systems, and UX.
-          </p>
-        </div>
-
-        <!-- Open Source -->
-        <div class="p-4 bg-slate-800/50 rounded-lg">
-          <div class="text-sm text-slate-300">Open Source</div>
-          <div class="mt-1 text-xl font-semibold text-white">
-            Laravel • Kotlin • Next.js
+  <main>
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+      <div class="max-w-7xl mx-auto px-6 relative z-10 text-center lg:text-left">
+        <div class="flex flex-col lg:flex-row items-center gap-16">
+          <div class="lg:w-3/5">
+            <h2 class="text-orange-400 font-bold tracking-widest text-sm uppercase mb-4">Fintech • AI • Full-Stack</h2>
+            <h1 class="text-5xl lg:text-7xl font-black tracking-tight mb-6 leading-tight">
+              Engineering <span class="text-gradient">Production-Ready</span> Digital Solutions.
+            </h1>
+            <p class="text-xl text-slate-400 max-w-2xl mb-8 leading-relaxed">
+              I build reliable, modular systems that bridge the gap between complex backend architecture and seamless user experiences.
+            </p>
+            <div class="flex flex-wrap justify-center lg:justify-start gap-4">
+              <a href="#projects" class="px-8 py-4 rounded-xl bg-slate-800 border border-slate-700 font-bold hover:bg-slate-700 transition-all">View Case Studies</a>
+              <a href="#contact" class="px-8 py-4 rounded-xl bg-sky-500 text-white font-bold shadow-lg hover:bg-sky-400 transition-all">Start a Conversation</a>
+            </div>
           </div>
-          <p class="mt-1 text-slate-400 text-sm">
-            Crafting reusable, intelligent, and modular systems.
-          </p>
+          <div class="lg:w-2/5 relative">
+            <div class="w-72 h-72 lg:w-96 lg:h-96 rounded-3xl overflow-hidden border-2 border-slate-700 shadow-2xl relative">
+              <img src="assets/Gemini_Generated_Image_84uc4584uc4584uc.png" alt="Peter Mwania" class="object-cover w-full h-full grayscale hover:grayscale-0 transition-all duration-700" />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-60"></div>
+              <div class="absolute bottom-6 left-6 text-left">
+                <p class="font-bold text-xl uppercase tracking-tighter">Peter Mwania</p>
+                <p class="text-sky-400 text-sm font-medium">Nairobi, Kenya</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- Right: portrait + decorative shapes -->
-    <div class="w-full lg:w-1/2 flex justify-center lg:justify-end">
-      <div class="relative w-72 h-72 sm:w-80 sm:h-80 rounded-3xl overflow-hidden shadow-2xl">
-        <div class="absolute inset-0 bg-gradient-to-br from-sky-500 to-orange-400 hero-shape"></div>
-        <!-- Replace with your real photo -->
-        <img src="assets/Gemini_Generated_Image_84uc4584uc4584uc.png" alt="Peter Mwania" class="object-cover w-full h-full mix-blend-overlay" />
-        <div class="absolute bottom-4 left-4 p-2 bg-slate-900/70 rounded-md text-sm">
-          Full-Stack Engineer
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- decorative SVG blobs -->
-  <svg class="absolute right-0 top-12 w-64 h-64 opacity-30" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="g1" x1="0" x2="1">
-        <stop offset="0" stop-color="#0ea5e9"/>
-        <stop offset="1" stop-color="#fb923c"/>
-      </linearGradient>
-    </defs>
-    <path fill="url(#g1)" d="M44.8,-55.7C60.8,-46.5,76.2,-33.2,78.4,-17.3C80.7,-1.5,69.9,16.7,58.2,31.7C46.6,46.8,34.1,59.8,18.7,66.3C3.3,72.8,-15,72.8,-30.6,66.8C-46.3,60.8,-59.2,48.9,-66.7,33.8C-74.2,18.7,-76.2,0.5,-71.9,-16.1C-67.6,-32.7,-57.1,-48,-42.6,-57.2C-28.1,-66.4,-14.1,-69.6,1.4,-71.8C16.8,-74,33.6,-75,44.8,-55.7Z" transform="translate(100 100)"/>
-  </svg>
-</section>
-
-
-    <!-- PROJECTS -->
-    <section id="projects" class="max-w-6xl mx-auto px-6 py-16">
-      <div class="mb-8">
-        <h2 class="text-2xl font-bold">Featured Projects</h2>
-        <p class="text-slate-400 mt-2">Selected case studies — problems, my role, and measurable outcomes.</p>
-      </div>
-
-      <div class="grid gap-6 lg:grid-cols-3">
-      <!-- HolidayHub -->
-      <article class="bg-gradient-to-br from-slate-800/60 to-slate-900 rounded-2xl p-5 reveal" data-delay="0">
-        <div class="flex items-start justify-between gap-4">
+    <section id="featured" class="py-24 bg-slate-800/30">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
           <div>
-            <h3 class="text-xl font-semibold">HolidayHub</h3>
-            <div class="text-sm text-slate-400 mt-1">Multi-destination travel booking platform</div>
+            <h2 class="text-sm font-bold text-sky-400 uppercase tracking-[0.2em] mb-2">Primary Portfolio</h2>
+            <h3 class="text-4xl font-bold">Production Deployments</h3>
           </div>
-          <div class="text-xs px-3 py-1 rounded-full bg-slate-700 text-slate-200">Laravel · Vue.js · Firebase</div>
+          <p class="text-slate-400 max-w-md">Real-world applications with active users, high uptime requirements, and complex business logic.</p>
         </div>
 
-        <p class="mt-4 text-slate-300">
-          <strong>Role:</strong> Lead Full-Stack Developer — designed and built the full booking platform, from REST APIs to the front-end interface.  
-          <br>
-          <strong>Problem:</strong> Travelers faced fragmented booking experiences across destinations and services.
-        </p>
+        <div class="grid lg:grid-cols-2 gap-8">
+          <div class="group relative bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden hover:border-sky-500/50 transition-all reveal">
+            <div class="p-8">
+              <div class="flex justify-between items-start mb-6">
+                <div class="px-4 py-1 rounded-full bg-green-500/10 border border-green-500/30 text-green-400 text-[10px] font-black uppercase tracking-widest">Live Production</div>
+                <div class="flex gap-2">
+                  <span class="text-xs text-slate-500 italic font-medium">99+ Lighthouse Score</span>
+                </div>
+              </div>
+              <h4 class="text-3xl font-bold mb-2">Jennim Travel</h4>
+              <p class="text-slate-400 mb-6">A full-scale travel booking engine built for the Kenyan safari market. Engineered with SEO-first architecture and dynamic package management.</p>
+              
+              <div class="grid grid-cols-2 gap-4 mb-8">
+                <div class="p-3 rounded-xl bg-slate-800/50 border border-slate-700">
+                  <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Impact</div>
+                  <div class="text-sm font-semibold">Automated SEO Indexing</div>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-800/50 border border-slate-700">
+                  <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Stack</div>
+                  <div class="text-sm font-semibold">Next.js 15, SSR, JSON-LD</div>
+                </div>
+              </div>
 
-        <ul class="mt-3 text-sm text-slate-400 space-y-1">
-          <li>• Improved booking completion rates by 28% through simplified multi-step flow.</li>
-          <li>• Integrated secure payment and email confirmation workflows.</li>
-          <li>• Deployed Firebase analytics to track user drop-offs and optimize UX.</li>
-        </ul>
+              <div class="flex items-center gap-4">
+                <a href="https://jennimkenya.com" target="_blank" class="px-6 py-3 rounded-xl bg-sky-500 text-white font-bold text-sm flex items-center gap-2 hover:bg-sky-400 transition-colors">
+                  Explore Live Site
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+              </div>
+            </div>
+          </div>
 
-        <div class="mt-4 flex gap-3">
-          <a href="https://holidayhub.unclecanvas.com/" target="_blank" class="px-3 py-2 bg-sky-500/20 border border-sky-400 rounded-md text-sm hover:bg-sky-500/30 transition">Live Demo</a>
-          <a href="holidayhub.html" class="px-3 py-2 bg-slate-800/40 border border-slate-700 rounded-md text-sm hover:bg-slate-700/60 transition">Case Study</a>
+          <div class="group relative bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden hover:border-orange-500/50 transition-all reveal" data-delay="100">
+            <div class="p-8">
+              <div class="flex justify-between items-start mb-6">
+                <div class="px-4 py-1 rounded-full bg-green-500/10 border border-green-500/30 text-green-400 text-[10px] font-black uppercase tracking-widest">Live Production</div>
+              </div>
+              <h4 class="text-3xl font-bold mb-2">Pitah Mzalendo</h4>
+              <p class="text-slate-400 mb-6">A digital identity platform focused on high-performance content delivery. Implemented custom analytics and secure lead capture systems.</p>
+              
+              <div class="grid grid-cols-2 gap-4 mb-8">
+                <div class="p-3 rounded-xl bg-slate-800/50 border border-slate-700">
+                  <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Impact</div>
+                  <div class="text-sm font-semibold">Optimized Core Web Vitals</div>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-800/50 border border-slate-700">
+                  <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">Stack</div>
+                  <div class="text-sm font-semibold">Modern Web Ops, Analytics</div>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-4">
+                <a href="https://pitahmzalendo.com" target="_blank" class="px-6 py-3 rounded-xl bg-orange-500 text-white font-bold text-sm flex items-center gap-2 hover:bg-orange-400 transition-colors">
+                  Explore Live Site
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
-      </article>
-
-
-        <!-- PlumRum -->
-        <!-- PlumRum -->
-        <article class="bg-gradient-to-br from-slate-800/60 to-slate-900 rounded-2xl p-5 reveal" data-delay="100">
-          <div class="flex items-start justify-between gap-4">
-            <div>
-              <h3 class="text-xl font-semibold">PlumRum</h3>
-              <div class="text-sm text-slate-400 mt-1">Multi-role eCommerce ecosystem</div>
-            </div>
-            <div class="text-xs px-3 py-1 rounded-full bg-slate-700 text-slate-200">Laravel · Vue.js · MySQL</div>
-          </div>
-
-          <p class="mt-4 text-slate-300">
-            <strong>Role:</strong> Lead Full-Stack Developer — built an integrated web platform connecting customers, vendors, and delivery partners.  
-            <br>
-            <strong>Problem:</strong> Local businesses lacked a unified marketplace that streamlined orders, deliveries, and admin management.
-          </p>
-
-          <ul class="mt-3 text-sm text-slate-400 space-y-1">
-            <li>• Developed a role-based ecosystem with dashboards for customers, vendors, and admins.</li>
-            <li>• Implemented inventory, order tracking, and analytics in a unified admin interface.</li>
-            <li>• Integrated multiple payment methods and live delivery tracking for transparency.</li>
-            <li>• Enabled delivery businesses to onboard, creating jobs and service efficiency.</li>
-          </ul>
-
-          <div class="mt-4 flex gap-3">
-            <a href="https://plumrum.unclecanvas.com/" class="px-3 py-2 bg-sky-500/20 border border-sky-400 rounded-md text-sm hover:bg-sky-500/30 transition">Live Demo</a>
-            <a href="plumrum.html" class="px-3 py-2 bg-slate-800/40 border border-slate-700 rounded-md text-sm hover:bg-slate-700/60 transition">Case Study</a>
-          </div>
-        </article>
-
-
-        <!-- The Eshop API -->
-        <article class="bg-gradient-to-br from-slate-800/60 to-slate-900 rounded-2xl p-5 reveal" data-delay="200">
-          <div class="flex items-start justify-between gap-4">
-            <div>
-              <h3 class="text-xl font-semibold">The Eshop API</h3>
-              <div class="text-sm text-slate-400 mt-1">Modular eCommerce backend</div>
-            </div>
-            <div class="text-xs px-3 py-1 rounded-full bg-slate-700 text-slate-200">Laravel • Docker</div>
-          </div>
-
-          <p class="mt-4 text-slate-300">Problem: Multiple stores needed a unified API. <br> Role: Architect & implementer.</p>
-
-          <ul class="mt-3 text-sm text-slate-400 space-y-1">
-            <li>• Built modular architecture enabling multi-tenant product sync.</li>
-            <li>• Reduced API response times by 42% with caching & query tuning.</li>
-          </ul>
-
-          <div class="mt-4 flex gap-3">
-            <a href="theeshopapi/theEshop_api.html" target="_blank" rel="noopener noreferrer" 
-              class="px-3 py-2 bg-sky-500/20 border border-sky-400 rounded-md text-sm hover:bg-sky-500/30 transition">
-              API Docs
-            </a>
-            <a href ="https://github.com/uncleBandit/LaravelApi" class="px-3 py-2 bg-slate-800/40 border border-slate-700 rounded-md text-sm">GitHub</a>
-          </div>
-        </article>
-
       </div>
-
-      <!-- More projects link -->
-      <div class="mt-8 text-center">
-        <a href="projects.html" class="inline-block px-6 py-3 rounded-full bg-gradient-to-r from-sky-400 to-orange-400 text-slate-900 font-semibold">See more projects</a>
-      </div>
-
     </section>
 
-    <!-- ABOUT -->
-    <section id="about" class="bg-slate-900 border-t border-slate-800">
-      <div class="max-w-4xl mx-auto px-6 py-16 grid lg:grid-cols-2 gap-8">
+    <section id="projects" class="py-24 bg-slate-800/30">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+          <div class="mb-12">
+        <h2 class="text-sm font-bold text-slate-500 uppercase tracking-[0.2em] mb-2">Systems Architecture</h2>
+        <h3 class="text-3xl font-bold">Internal Tools & API Ecosystems</h3>
+      </div>
+          <a href="projects.html" class="text-sky-400 font-bold flex items-center gap-2 hover:underline">
+            Archive of 10+ Projects 
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+          </a>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-8">
+          <article class="project-card bg-slate-900 p-8 rounded-3xl border border-slate-800 transition-all reveal">
+            <div class="flex justify-between mb-6">
+              <span class="px-3 py-1 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-xs font-bold uppercase tracking-widest">Travel-Tech</span>
+              <div class="flex gap-2">
+                <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                <span class="text-[10px] font-bold text-slate-500 uppercase">Live</span>
+              </div>
+            </div>
+            <h3 class="text-2xl font-bold mb-4">HolidayHub</h3>
+            <p class="text-slate-400 text-sm mb-6 leading-relaxed">Multi-destination booking engine. Optimized for speed, reducing traveler drop-off by <strong>28%</strong> through simplified multi-step workflows.</p>
+            <div class="flex flex-wrap gap-2 mb-8">
+              <span class="text-[10px] font-bold px-2 py-1 bg-slate-800 rounded">LARAVEL</span>
+              <span class="text-[10px] font-bold px-2 py-1 bg-slate-800 rounded">FIREBASE</span>
+              <span class="text-[10px] font-bold px-2 py-1 bg-slate-800 rounded">VUE.JS</span>
+            </div>
+            <div class="flex gap-4">
+              <a href="https://holidayhub.unclecanvas.com/" target="_blank" class="flex-1 text-center py-3 rounded-xl bg-sky-500 text-white font-bold text-sm hover:bg-sky-400 transition">Live Demo</a>
+              <a href="holidayhub.html" class="flex-1 text-center py-3 rounded-xl border border-slate-700 text-sm hover:bg-slate-800 transition">Case Study</a>
+            </div>
+          </article>
+
+          <article class="project-card bg-slate-900 p-8 rounded-3xl border border-slate-800 transition-all reveal" data-delay="100">
+            <div class="flex justify-between mb-6">
+              <span class="px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-bold uppercase tracking-widest">Marketplace</span>
+              <div class="flex gap-2">
+                <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                <span class="text-[10px] font-bold text-slate-500 uppercase">Live</span>
+              </div>
+            </div>
+            <h3 class="text-2xl font-bold mb-4">PlumRum</h3>
+            <p class="text-slate-400 text-sm mb-6 leading-relaxed">Integrated e-commerce ecosystem connecting vendors, customers, and delivery partners with real-time order tracking.</p>
+            <div class="flex flex-wrap gap-2 mb-8">
+              <span class="text-[10px] font-bold px-2 py-1 bg-slate-800 rounded">MYSQL</span>
+              <span class="text-[10px] font-bold px-2 py-1 bg-slate-800 rounded">ECOSYSTEM</span>
+              <span class="text-[10px] font-bold px-2 py-1 bg-slate-800 rounded">DASHBOARDS</span>
+            </div>
+            <div class="flex gap-4">
+              <a href="https://plumrum.unclecanvas.com/" target="_blank" class="flex-1 text-center py-3 rounded-xl bg-orange-500 text-white font-bold text-sm hover:bg-orange-400 transition">Live Demo</a>
+              <a href="plumrum.html" class="flex-1 text-center py-3 rounded-xl border border-slate-700 text-sm hover:bg-slate-800 transition">Case Study</a>
+            </div>
+          </article>
+
+          <article class="project-card bg-slate-900 p-8 rounded-3xl border border-slate-800 transition-all reveal" data-delay="200">
+            <div class="flex justify-between mb-6">
+              <span class="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-bold uppercase tracking-widest">Infrastructure</span>
+              <span class="text-[10px] font-bold text-slate-500 uppercase">Open Source</span>
+            </div>
+            <h3 class="text-2xl font-bold mb-4">The Eshop API</h3>
+            <p class="text-slate-400 text-sm mb-6 leading-relaxed">Modular multi-tenant backend architecture. Engineered for high availability, reducing latency by <strong>42%</strong> via Redis and query tuning.</p>
+            <div class="flex flex-wrap gap-2 mb-8">
+              <span class="text-[10px] font-bold px-2 py-1 bg-slate-800 rounded">DOCKER</span>
+              <span class="text-[10px] font-bold px-2 py-1 bg-slate-800 rounded">RESTFUL</span>
+              <span class="text-[10px] font-bold px-2 py-1 bg-slate-800 rounded">PHP 8.x</span>
+            </div>
+            <div class="flex gap-4">
+              <a href="https://github.com/uncleBandit/LaravelApi" target="_blank" class="flex-1 text-center py-3 rounded-xl bg-slate-800 text-white font-bold text-sm hover:bg-slate-700 transition">GitHub Repo</a>
+              <a href="theeshopapi/theEshop_api.html" class="flex-1 text-center py-3 rounded-xl border border-slate-700 text-sm hover:bg-slate-800 transition">API Docs</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="py-24 max-w-7xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-20 items-center">
         <div>
-          <h2 class="text-2xl font-bold">About me</h2>
-          <p class="mt-4 text-slate-300">I am a Full-Stack Software Engineer focused on building reliable, performance-driven systems across web and mobile platforms. My passion lies in taking complex challenges—like multi-role financial transactions and secure data flows—and transforming them into clear, scalable architecture. I deliver performant solutions, such as my Laravel-based travel and e-commerce platforms, that genuinely simplify user experiences.</p>
-
-          <ul class="mt-6 space-y-2 text-slate-400">
-            <li>• 2+ years building production apps for web & mobile</li>
-            <li>• Strong focus on backend architecture and system reliability</li>
-            <li>• Comfortable leading small engineering teams & mentoring</li>
-          </ul>
-
-          <div class="mt-6 flex gap-3">
-            <a href="#contact" class="px-4 py-2 rounded-md bg-sky-400/20 border border-sky-400">Let’s talk</a>
-            <a href="#" class="px-4 py-2 rounded-md border border-slate-700">Download resume</a>
-          </div>
-        </div>
-
-       <div class="p-6 bg-gradient-to-br from-slate-800/50 to-slate-900 rounded-2xl">
-          <h3 class="text-lg font-semibold">Approach & Impact</h3>
-          <p class="mt-3 text-slate-300">
-            I engineer modular, human-centered systems that scale across web and mobile. My process blends rapid prototyping with structured iteration — from defining core architecture to refining user experience through real data. 
-            I value clean abstractions, measurable impact, and seamless integration between products and people.
+          <h2 class="text-3xl font-bold mb-6">The Engineering Mindset</h2>
+          <p class="text-slate-400 leading-relaxed mb-6">
+            I don't just write code; I design systems. With 4+ years of production experience, I focus on the "why" behind the technology. Whether it's implementing <strong>Clean Architecture</strong> in Kotlin or designing <strong>Modular Systems</strong> in Laravel, I prioritize long-term maintainability over quick fixes.
           </p>
-
-          <div class="mt-4 grid grid-cols-2 gap-4">
-            <div class="p-3 bg-slate-800/60 rounded-lg">
-              <div class="text-xs text-slate-400">Architecture</div>
-              <div class="mt-1 font-semibold">Clean Architecture • Modular Systems</div>
+          <div class="space-y-4">
+            <div class="flex items-start gap-4">
+              <div class="mt-1 bg-sky-500/20 p-2 rounded-lg text-sky-400 font-bold text-xs underline decoration-sky-400">01</div>
+              <div>
+                <h4 class="font-bold">Scalability First</h4>
+                <p class="text-sm text-slate-500">Systems designed to grow from 10 to 10,000+ users without architectural bottlenecks.</p>
+              </div>
             </div>
-            <div class="p-3 bg-slate-800/60 rounded-lg">
-              <div class="text-xs text-slate-400">Backend</div>
-              <div class="mt-1 font-semibold">Laravel • Kotlin • Firebase • RESTful APIs</div>
-            </div>
-            <div class="p-3 bg-slate-800/60 rounded-lg">
-              <div class="text-xs text-slate-400">Frontend</div>
-              <div class="mt-1 font-semibold">Vue.js • React • Jetpack Compose • Livewire</div>
-            </div>
-            <div class="p-3 bg-slate-800/60 rounded-lg">
-              <div class="text-xs text-slate-400">DevOps</div>
-              <div class="mt-1 font-semibold">Docker • CI/CD • Firebase Hosting</div>
-            </div>
-            <div class="p-3 bg-slate-800/60 rounded-lg">
-              <div class="text-xs text-slate-400">Domain Focus</div>
-              <div class="mt-1 font-semibold">eCommerce • Fintech • AI-Driven Fitness</div>
-            </div>
-            <div class="p-3 bg-slate-800/60 rounded-lg">
-              <div class="text-xs text-slate-400">Core Strength</div>
-              <div class="mt-1 font-semibold">Systems Integration & User Experience</div>
+            <div class="flex items-start gap-4">
+              <div class="mt-1 bg-orange-500/20 p-2 rounded-lg text-orange-400 font-bold text-xs underline decoration-orange-400">02</div>
+              <div>
+                <h4 class="font-bold">Security Driven</h4>
+                <p class="text-sm text-slate-500">Hardened API endpoints and secure data flows for sensitive fintech transactions.</p>
+              </div>
             </div>
           </div>
         </div>
-
+        <div id="skills" class="grid grid-cols-2 gap-4">
+          <div class="p-6 rounded-2xl bg-slate-800 border border-slate-700">
+            <h4 class="text-sky-400 text-xs font-bold uppercase mb-4">Frontend</h4>
+            <ul class="text-sm space-y-2 font-medium">
+              <li>React / Next.js</li>
+              <li>Vue.js / Nuxt</li>
+              <li>Jetpack Compose</li>
+              <li>Tailwind CSS</li>
+            </ul>
+          </div>
+          <div class="p-6 rounded-2xl bg-slate-800 border border-slate-700">
+            <h4 class="text-orange-400 text-xs font-bold uppercase mb-4">Backend</h4>
+            <ul class="text-sm space-y-2 font-medium">
+              <li>Laravel / PHP</li>
+              <li>Node.js / Express</li>
+              <li>Kotlin / Java</li>
+              <li>PostgreSQL / MySQL</li>
+            </ul>
+          </div>
+          <div class="p-6 rounded-2xl bg-slate-800 border border-slate-700">
+            <h4 class="text-purple-400 text-xs font-bold uppercase mb-4">DevOps</h4>
+            <ul class="text-sm space-y-2 font-medium">
+              <li>Docker / Containers</li>
+              <li>CI/CD Pipelines</li>
+              <li>Firebase / AWS</li>
+              <li>Linux Server Mgmt</li>
+            </ul>
+          </div>
+          <div class="p-6 rounded-2xl bg-slate-800 border border-slate-700 flex flex-col justify-center items-center text-center">
+            <p class="text-3xl font-black text-white">4+</p>
+            <p class="text-xs text-slate-500 uppercase font-bold tracking-widest">Years of Impact</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- SKILLS -->
-    <section id="skills" class="max-w-6xl mx-auto px-6 py-16">
-      <h2 class="text-2xl font-bold mb-4">Skills Snapshot</h2>
-      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <div class="p-4 bg-slate-800/50 rounded-lg">
-          <div class="text-sm text-slate-400">Frontend</div>
-          <div class="mt-2 font-semibold">React • Vue.js • Jetpack Compose • Next.js</div>
-        </div>
-        <div class="p-4 bg-slate-800/50 rounded-lg">
-          <div class="text-sm text-slate-400">Backend</div>
-          <div class="mt-2 font-semibold">Laravel • Node.js • Kotlin</div>
-        </div>
-        <div class="p-4 bg-slate-800/50 rounded-lg">
-          <div class="text-sm text-slate-400">Data & DB</div>
-          <div class="mt-2 font-semibold">MySQL • Postgres • SqlLite</div>
-        </div>
-        <div class="p-4 bg-slate-800/50 rounded-lg">
-          <div class="text-sm text-slate-400">Tools</div>
-          <div class="mt-2 font-semibold">Docker • CI/CD • GitHub</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="bg-slate-900 border-t border-slate-800">
-      <div class="max-w-4xl mx-auto px-6 py-16">
-        <h2 class="text-2xl font-bold">Get in touch</h2>
-        <p class="text-slate-400 mt-2">Open for full-time roles & exciting fintech projects. Tell me about your needs — I’ll respond quickly.</p>
-
-        <div class="mt-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <form id ="contactUs"class="space-y-4" >
-            <input class="w-full p-3 rounded-md bg-slate-800 border border-slate-700" placeholder="Your name" required />
-            <input class="w-full p-3 rounded-md bg-slate-800 border border-slate-700" placeholder="Email" type="email" required />
-            <input class="w-full p-3 rounded-md bg-slate-800 border border-slate-700" placeholder="Subject" />
-            <textarea class="w-full p-3 rounded-md bg-slate-800 border border-slate-700" rows="5" placeholder="Message..." required></textarea>
-            <div>
-              <button class="px-5 py-3 rounded-full bg-gradient-to-r from-sky-400 to-orange-400 text-slate-900 font-semibold">Send message</button>
-            </div>
-          </form>
-
-          <div class="p-6 bg-gradient-to-br from-slate-800/60 to-slate-900 rounded-2xl">
-            <h3 class="font-semibold">Prefer email?</h3>
-            <p class="mt-2 text-slate-400">pitmwania@gmail.com</p>
-
-            <div class="mt-6">
-              <h4 class="text-sm text-slate-400">Find me</h4>
-              <ul class="mt-3 space-y-2 text-slate-300">
-                <li>GitHub: <a href="https://github.com/uncleBandit" class="text-sky-300">github.com/unclebandit</a></li>
-                <li>LinkedIn: <a href="www.linkedin.com/in/peter-mwania-893375113" class="text-sky-300">linkedin.com/in/petermwania</a></li>
-              </ul>
-            </div>
-
-            <div class="mt-6 text-slate-400 text-sm">Open to relocation & remote roles.</div>
+    <section id="contact" class="py-24 border-t border-slate-800 bg-slate-900">
+      <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16">
+        <div>
+          <h2 class="text-4xl font-black mb-6">Let's build something <span class="text-gradient">remarkable.</span></h2>
+          <p class="text-slate-400 text-lg mb-8 leading-relaxed">
+            I am currently open to full-time engineering roles, strategic consultations, and high-impact fintech collaborations.
+          </p>
+          <div class="space-y-4">
+            <p class="flex items-center gap-3 text-slate-300">
+              <svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+              pitmwania@gmail.com
+            </p>
+            <p class="flex items-center gap-3 text-slate-300">
+              <svg class="w-5 h-5 text-sky-400" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              <a href="https://github.com/uncleBandit" target="_blank" class="hover:text-sky-400">github.com/unclebandit</a>
+            </p>
           </div>
         </div>
 
+        <form id="contactUs" class="bg-slate-800 p-8 rounded-3xl border border-slate-700 space-y-4">
+          <div class="grid grid-cols-2 gap-4">
+            <input name="user_name" class="p-4 rounded-xl bg-slate-900 border border-slate-700 focus:border-sky-500 outline-none transition" placeholder="Name" required />
+            <input name="user_email" type="email" class="p-4 rounded-xl bg-slate-900 border border-slate-700 focus:border-sky-500 outline-none transition" placeholder="Email" required />
+          </div>
+          <input name="subject" class="w-full p-4 rounded-xl bg-slate-900 border border-slate-700 focus:border-sky-500 outline-none transition" placeholder="Subject" required />
+          <textarea name="message" class="w-full p-4 rounded-xl bg-slate-900 border border-slate-700 focus:border-sky-500 outline-none transition" rows="5" placeholder="Tell me about your project needs..." required></textarea>
+          <button type="submit" id="submitBtn" class="w-full py-4 rounded-xl bg-gradient-to-r from-sky-400 to-orange-400 text-slate-900 font-black uppercase tracking-widest hover:shadow-xl hover:shadow-sky-500/10 transition-all">Send Mission Report</button>
+        </form>
       </div>
     </section>
-
-    <!-- FOOTER -->
-    <footer class="max-w-6xl mx-auto px-6 py-8 text-slate-400 text-sm">
-      <div class="flex items-center justify-between">
-        <div>© 2025 Peter Mwania</div>
-        <div>Built with care • <span class="text-sky-300">Full‑Stack</span></div>
-      </div>
-    </footer>
-
   </main>
 
-  <!-- Floating CTA for mobile/desktop -->
-  <a href="#contact" class="hidden md:flex fixed right-6 bottom-8 px-4 py-3 rounded-full floating-cta bg-gradient-to-r from-sky-400 to-orange-400 text-slate-900 font-semibold">Hire me</a>
+  <footer class="py-12 bg-slate-900 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm gap-4">
+      <div class="flex items-center gap-4 italic font-medium">
+        <span>© 2026 Peter Mwania</span>
+        <span class="w-1 h-1 rounded-full bg-slate-700"></span>
+        <a href="https://www.linkedin.com/in/peter-mwania-893375113" class="hover:text-white transition">LinkedIn</a>
+        <a href="https://github.com/uncleBandit" class="hover:text-white transition">GitHub</a>
+      </div>
+      <div class="font-bold tracking-tighter uppercase">Crafting High‑Reliability Systems</div>
+    </div>
+  </footer>
+
   <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <script>
-    (function(){
-      emailjs.init("l2zxFBKKJS1ieR7ht"); // Replace with your EmailJS public key
-    })();
+    (function(){ emailjs.init("l2zxFBKKJS1ieR7ht"); })();
+    
     document.getElementById('contactUs').addEventListener('submit', function(event) {
       event.preventDefault();
+      const btn = document.getElementById('submitBtn');
+      btn.innerHTML = "TRANSMITTING...";
+      btn.disabled = true;
 
-      emailjs.sendForm('service_1uo5c0a', 'template_ex0y6h2', this) // Replace with your EmailJS service ID and template ID
-        .then(function() {
-          alert('Message sent successfully!');
-        }, function(error) {
-          alert('Failed to send message. Please try again later.');
-          console.log('FAILED...', error);
+      emailjs.sendForm('service_1uo5c0a', 'template_ex0y6h2', this)
+        .then(() => {
+          alert('Message sent successfully! I will reach out soon.');
+          this.reset();
+        }, (error) => {
+          alert('Failed to send message. Please try again.');
+          console.error(error);
+        })
+        .finally(() => {
+          btn.innerHTML = "Send Mission Report";
+          btn.disabled = false;
         });
-      this.reset(); // Reset the form after submission
-    });
-  </script>
-
-  <script>
-    // Mobile menu toggle
-    const menuBtn = document.getElementById('menuBtn');
-    const mobileNav = document.getElementById('mobileNav');
-    menuBtn?.addEventListener('click', () => {
-      mobileNav.classList.toggle('hidden');
     });
 
-    // simple reveal on scroll
-    function reveal() {
-      document.querySelectorAll('.reveal').forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 60) el.classList.add('show');
+    // Intersection Observer for animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
       });
-    }
-    window.addEventListener('scroll', reveal);
-    window.addEventListener('load', reveal);
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Mobile Menu
+    const menuBtn = document.getElementById('menuBtn');
+    menuBtn.addEventListener('click', () => {
+      // Basic toggle logic here if you add a mobile drawer
+      alert("Projects | About | Skills | Contact");
+    });
   </script>
 </body>
 </html>
