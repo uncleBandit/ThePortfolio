@@ -1,0 +1,2005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hyssop LMS — Case Study | Peter Mwania</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg: #080c10;
+    --surface: #0e141b;
+    --surface-2: #141c26;
+    --border: rgba(255,255,255,0.07);
+    --border-bright: rgba(255,255,255,0.14);
+    --emerald: #10b981;
+    --emerald-dim: #064e3b;
+    --emerald-glow: rgba(16,185,129,0.15);
+    --gold: #f59e0b;
+    --gold-dim: rgba(245,158,11,0.1);
+    --text: #f0f4f8;
+    --muted: #64748b;
+    --muted-2: #94a3b8;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── GRID LINES ── */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(16,185,129,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(16,185,129,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 3rem;
+    backdrop-filter: blur(20px);
+    background: rgba(8,12,16,0.7);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: 0.1em;
+    color: var(--emerald);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted-2);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--emerald); }
+
+  .nav-cta {
+    background: var(--emerald);
+    color: #000 !important;
+    padding: 0.5rem 1.2rem;
+    border-radius: 6px;
+    font-weight: 700 !important;
+  }
+
+  .nav-cta:hover { background: #059669; color: #000 !important; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 3rem 4rem;
+    overflow: hidden;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: -20%;
+    left: -10%;
+    width: 70%;
+    height: 70%;
+    background: radial-gradient(ellipse, rgba(16,185,129,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-glow-2 {
+    position: absolute;
+    bottom: -10%;
+    right: -10%;
+    width: 50%;
+    height: 50%;
+    background: radial-gradient(ellipse, rgba(245,158,11,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 1rem;
+    border: 1px solid var(--emerald-dim);
+    background: var(--emerald-glow);
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--emerald);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    width: fit-content;
+    opacity: 0;
+    animation: fadeUp 0.6s 0.2s forwards;
+  }
+
+  .hero-tag-dot {
+    width: 6px; height: 6px;
+    background: var(--emerald);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(4rem, 10vw, 9rem);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.35s forwards;
+  }
+
+  .hero-title em {
+    font-style: normal;
+    color: var(--emerald);
+  }
+
+  .hero-title .hero-title-line2 {
+    display: block;
+    color: var(--muted);
+    -webkit-text-stroke: 1px rgba(100,116,139,0.4);
+    color: transparent;
+  }
+
+  .hero-sub {
+    max-width: 560px;
+    font-size: 1.05rem;
+    color: var(--muted-2);
+    margin-bottom: 3rem;
+    font-weight: 300;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.5s forwards;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.65s forwards;
+  }
+
+  .hero-stat-val {
+    font-family: var(--font-display);
+    font-size: 2.8rem;
+    color: var(--emerald);
+    line-height: 1;
+  }
+
+  .hero-stat-label {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-top: 0.25rem;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 0.7s 1s forwards;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--emerald), transparent);
+    animation: scrollLine 1.5s ease-in-out infinite;
+  }
+
+  /* ── DASHBOARD MOCKUP IN HERO ── */
+  .hero-visual {
+    position: absolute;
+    right: -5%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 55%;
+    opacity: 0;
+    animation: slideIn 0.9s 0.7s forwards;
+  }
+
+  .dashboard-frame {
+    background: var(--surface);
+    border: 1px solid var(--border-bright);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow:
+      0 0 0 1px rgba(16,185,129,0.1),
+      0 40px 80px rgba(0,0,0,0.6),
+      0 0 120px rgba(16,185,129,0.08);
+  }
+
+  .dashboard-bar {
+    background: var(--surface-2);
+    padding: 0.7rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #ef4444; }
+  .dot-y { background: #f59e0b; }
+  .dot-g { background: #22c55e; }
+
+  .dashboard-url {
+    flex: 1;
+    margin-left: 0.5rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.25rem 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+  }
+
+  .dashboard-body {
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 1rem;
+    min-height: 360px;
+  }
+
+  .dash-sidebar {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1rem;
+  }
+
+  .dash-logo {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--emerald);
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .dash-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.5rem 0.7rem;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    color: var(--muted-2);
+    margin-bottom: 0.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .dash-menu-item.active {
+    background: var(--emerald-glow);
+    color: var(--emerald);
+    border: 1px solid var(--emerald-dim);
+  }
+
+  .dash-icon { width: 14px; height: 14px; opacity: 0.7; }
+
+  .dash-main { display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .dash-kpis {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.6rem;
+  }
+
+  .dash-kpi {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.8rem;
+  }
+
+  .dash-kpi-label { font-size: 0.6rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.3rem; }
+  .dash-kpi-val { font-family: var(--font-display); font-size: 1.4rem; color: var(--text); }
+  .dash-kpi-delta { font-size: 0.6rem; color: var(--emerald); margin-top: 0.1rem; }
+
+  .dash-chart-area {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.8rem;
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .dash-chart-title { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.8rem; }
+
+  .chart-bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    height: 80px;
+  }
+
+  .chart-bar {
+    flex: 1;
+    background: var(--emerald-dim);
+    border-radius: 3px 3px 0 0;
+    border: 1px solid rgba(16,185,129,0.2);
+    position: relative;
+    transition: height 0.5s ease;
+  }
+
+  .chart-bar.highlight {
+    background: var(--emerald);
+    border-color: var(--emerald);
+    box-shadow: 0 0 12px rgba(16,185,129,0.4);
+  }
+
+  .dash-table {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .dash-table-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    padding: 0.5rem 0.8rem;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.55rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .dash-table-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    padding: 0.45rem 0.8rem;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    font-size: 0.65rem;
+    color: var(--muted-2);
+    align-items: center;
+  }
+
+  .status-pill {
+    display: inline-block;
+    padding: 0.1rem 0.4rem;
+    border-radius: 100px;
+    font-size: 0.55rem;
+    font-weight: 600;
+  }
+
+  .status-active { background: rgba(16,185,129,0.1); color: var(--emerald); border: 1px solid var(--emerald-dim); }
+  .status-pending { background: rgba(245,158,11,0.1); color: var(--gold); border: 1px solid rgba(245,158,11,0.2); }
+  .status-review { background: rgba(99,102,241,0.1); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.2); }
+
+  /* ── SECTIONS ── */
+  section { position: relative; z-index: 1; }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 3rem;
+  }
+
+  .section-pad { padding: 7rem 0; }
+
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--emerald);
+    margin-bottom: 1.2rem;
+  }
+
+  .section-tag::before {
+    content: '';
+    display: block;
+    width: 20px; height: 1px;
+    background: var(--emerald);
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-body {
+    font-size: 1rem;
+    color: var(--muted-2);
+    max-width: 600px;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+
+  /* ── OVERVIEW ── */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .overview-image-wrap {
+    position: relative;
+  }
+
+  .overview-image-wrap img {
+    width: 100%;
+    border-radius: 16px;
+    display: block;
+    filter: brightness(0.85) contrast(1.05);
+  }
+
+  .img-placeholder {
+    width: 100%;
+    aspect-ratio: 4/3;
+    background: var(--surface);
+    border: 1px solid var(--border-bright);
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: var(--muted);
+    font-size: 0.8rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .img-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(16,185,129,0.04) 0%, transparent 60%);
+  }
+
+  .img-placeholder svg {
+    width: 48px;
+    height: 48px;
+    opacity: 0.3;
+    stroke: var(--emerald);
+  }
+
+  .overview-badge {
+    position: absolute;
+    bottom: -1rem;
+    right: -1rem;
+    background: var(--emerald);
+    color: #000;
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(16,185,129,0.4);
+  }
+
+  /* ── VIDEO SECTION ── */
+  .video-section {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .video-wrap {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--border-bright);
+    box-shadow: 0 40px 100px rgba(0,0,0,0.5), 0 0 0 1px rgba(16,185,129,0.1);
+    background: #000;
+    aspect-ratio: 16/9;
+  }
+
+  .video-wrap video,
+  .video-wrap iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .video-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #0a1628 0%, #0d1f35 50%, #091420 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .video-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(16,185,129,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(16,185,129,0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .video-glow {
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: breathe 3s ease-in-out infinite;
+  }
+
+  .play-btn {
+    width: 80px; height: 80px;
+    background: rgba(16,185,129,0.15);
+    border: 2px solid var(--emerald);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .play-btn:hover {
+    background: var(--emerald);
+    transform: scale(1.1);
+    box-shadow: 0 0 40px rgba(16,185,129,0.5);
+  }
+
+  .play-btn svg { width: 28px; height: 28px; fill: var(--emerald); margin-left: 4px; }
+  .play-btn:hover svg { fill: #000; }
+
+  .video-label {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    letter-spacing: 0.05em;
+    color: var(--text);
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .video-sublabel {
+    font-size: 0.85rem;
+    color: var(--muted);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── ARCHITECTURE ── */
+  .arch-diagram {
+    background: var(--surface);
+    border: 1px solid var(--border-bright);
+    border-radius: 20px;
+    padding: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .arch-diagram::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--emerald), transparent);
+  }
+
+  .arch-flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .arch-layer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 0;
+  }
+
+  .arch-node {
+    background: var(--surface-2);
+    border: 1px solid var(--border-bright);
+    border-radius: 10px;
+    padding: 0.8rem 1.2rem;
+    text-align: center;
+    min-width: 140px;
+    position: relative;
+    transition: all 0.3s;
+  }
+
+  .arch-node:hover {
+    border-color: var(--emerald);
+    box-shadow: 0 0 20px rgba(16,185,129,0.15);
+    transform: translateY(-2px);
+  }
+
+  .arch-node-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+  }
+
+  .arch-node-sub {
+    font-size: 0.6rem;
+    color: var(--muted);
+    font-family: var(--font-mono);
+  }
+
+  .arch-node.primary {
+    border-color: rgba(16,185,129,0.3);
+    background: rgba(16,185,129,0.05);
+  }
+
+  .arch-node.primary .arch-node-title { color: var(--emerald); }
+
+  .arch-connector {
+    width: 1px;
+    height: 30px;
+    background: linear-gradient(to bottom, var(--emerald), rgba(16,185,129,0.2));
+    position: relative;
+    margin: 0 auto;
+  }
+
+  .arch-connector::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 6px; height: 6px;
+    border-right: 1px solid var(--emerald);
+    border-bottom: 1px solid var(--emerald);
+    transform: translateX(-50%) rotate(45deg);
+    bottom: -3px;
+  }
+
+  .arch-spread {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.8rem;
+    width: 100%;
+  }
+
+  /* ── MODULES ── */
+  .modules-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .module-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    cursor: default;
+  }
+
+  .module-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--emerald), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .module-card:hover {
+    border-color: rgba(16,185,129,0.2);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 40px rgba(16,185,129,0.06);
+  }
+
+  .module-card:hover::before { opacity: 1; }
+
+  .module-icon {
+    width: 48px; height: 48px;
+    background: var(--emerald-glow);
+    border: 1px solid var(--emerald-dim);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+    font-size: 1.3rem;
+  }
+
+  .module-title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.6rem;
+  }
+
+  .module-desc {
+    font-size: 0.85rem;
+    color: var(--muted-2);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .module-flow {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+
+  .flow-step {
+    font-size: 0.6rem;
+    padding: 0.2rem 0.5rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    color: var(--muted);
+    font-family: var(--font-mono);
+  }
+
+  /* ── SECURITY ── */
+  .security-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .security-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .security-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1.2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    align-items: flex-start;
+    transition: all 0.3s;
+  }
+
+  .security-item:hover {
+    border-color: rgba(16,185,129,0.2);
+    background: rgba(16,185,129,0.03);
+  }
+
+  .security-item-icon {
+    width: 36px; height: 36px;
+    flex-shrink: 0;
+    background: var(--emerald-glow);
+    border: 1px solid var(--emerald-dim);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+  }
+
+  .security-item-title {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .security-item-desc {
+    font-size: 0.8rem;
+    color: var(--muted-2);
+    font-weight: 300;
+  }
+
+  /* ── SECURITY VISUAL ── */
+  .security-visual {
+    background: var(--surface);
+    border: 1px solid var(--border-bright);
+    border-radius: 20px;
+    padding: 2rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .security-visual::before {
+    content: '';
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 150px; height: 150px;
+    background: radial-gradient(circle, rgba(16,185,129,0.1), transparent);
+    border-radius: 50%;
+  }
+
+  .code-line { padding: 0.15rem 0; }
+  .code-comment { color: #4b5563; }
+  .code-key { color: #60a5fa; }
+  .code-val { color: var(--emerald); }
+  .code-str { color: #f59e0b; }
+  .code-num { color: #c084fc; }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--emerald), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    padding: 0 0 3rem 2.5rem;
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -2rem;
+    top: 0.3rem;
+    width: 12px; height: 12px;
+    background: var(--emerald);
+    border-radius: 50%;
+    box-shadow: 0 0 12px rgba(16,185,129,0.5);
+    transform: translateX(-50%);
+  }
+
+  .timeline-phase {
+    font-size: 0.7rem;
+    color: var(--emerald);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+    font-family: var(--font-mono);
+  }
+
+  .timeline-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.5rem;
+  }
+
+  .timeline-desc {
+    font-size: 0.85rem;
+    color: var(--muted-2);
+    font-weight: 300;
+  }
+
+  .timeline-dur {
+    display: inline-block;
+    margin-top: 0.6rem;
+    padding: 0.2rem 0.7rem;
+    background: var(--gold-dim);
+    border: 1px solid rgba(245,158,11,0.15);
+    border-radius: 100px;
+    font-size: 0.7rem;
+    color: var(--gold);
+    font-family: var(--font-mono);
+  }
+
+  /* ── COST TABLE ── */
+  .cost-table {
+    background: var(--surface);
+    border: 1px solid var(--border-bright);
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .cost-table-header {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    padding: 1rem 2rem;
+    background: rgba(16,185,129,0.06);
+    border-bottom: 1px solid var(--border-bright);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .cost-table-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    padding: 1.2rem 2rem;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+    transition: background 0.2s;
+  }
+
+  .cost-table-row:hover { background: rgba(255,255,255,0.02); }
+
+  .cost-table-row:last-child { border-bottom: none; }
+
+  .cost-milestone {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .cost-desc {
+    font-size: 0.8rem;
+    color: var(--muted-2);
+    font-weight: 300;
+  }
+
+  .cost-amount {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--emerald);
+    text-align: right;
+  }
+
+  .cost-total-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    padding: 1.5rem 2rem;
+    background: var(--emerald-glow);
+    border-top: 1px solid rgba(16,185,129,0.2);
+    align-items: center;
+  }
+
+  .cost-total-label {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    letter-spacing: 0.05em;
+    color: var(--emerald);
+    grid-column: 1 / 3;
+  }
+
+  .cost-total-amount {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--emerald);
+    text-align: right;
+  }
+
+  /* ── TECH STACK ── */
+  .stack-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .stack-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.1rem;
+    background: var(--surface);
+    border: 1px solid var(--border-bright);
+    border-radius: 100px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text);
+    transition: all 0.25s;
+  }
+
+  .stack-badge:hover {
+    border-color: var(--emerald);
+    background: var(--emerald-glow);
+    color: var(--emerald);
+    transform: translateY(-2px);
+  }
+
+  .stack-badge-dot {
+    width: 6px; height: 6px;
+    background: var(--emerald);
+    border-radius: 50%;
+  }
+
+  /* ── VIDEO THUMBNAILS ── */
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  .video-thumb {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border-bright);
+    aspect-ratio: 16/9;
+    background: var(--surface);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  .video-thumb:hover {
+    border-color: var(--emerald);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 40px rgba(16,185,129,0.1);
+  }
+
+  .video-thumb-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.5);
+    transition: filter 0.3s;
+  }
+
+  .video-thumb:hover .video-thumb-bg { filter: brightness(0.3); }
+
+  .video-thumb-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+  }
+
+  .video-thumb-play {
+    width: 52px; height: 52px;
+    background: rgba(16,185,129,0.2);
+    border: 1.5px solid var(--emerald);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+  }
+
+  .video-thumb:hover .video-thumb-play {
+    background: var(--emerald);
+    box-shadow: 0 0 30px rgba(16,185,129,0.5);
+  }
+
+  .video-thumb-play svg { width: 18px; fill: var(--emerald); margin-left: 3px; }
+  .video-thumb:hover .video-thumb-play svg { fill: #000; }
+
+  .video-thumb-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--text);
+    letter-spacing: 0.04em;
+    text-align: center;
+    padding: 0 1rem;
+  }
+
+  .video-thumb-duration {
+    font-size: 0.7rem;
+    color: var(--muted);
+    font-family: var(--font-mono);
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: linear-gradient(135deg, rgba(16,185,129,0.06) 0%, rgba(16,185,129,0.02) 50%, transparent 100%);
+    border-top: 1px solid rgba(16,185,129,0.15);
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .cta-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba(16,185,129,0.1) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-title {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    letter-spacing: 0.02em;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+
+  .cta-sub {
+    font-size: 1rem;
+    color: var(--muted-2);
+    max-width: 480px;
+    margin: 0 auto 2.5rem;
+    font-weight: 300;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: var(--emerald);
+    color: #000;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 0.9rem 2rem;
+    border-radius: 10px;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: all 0.25s;
+    box-shadow: 0 4px 20px rgba(16,185,129,0.3);
+  }
+
+  .btn-primary:hover {
+    background: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(16,185,129,0.4);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background: transparent;
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.9rem 2rem;
+    border-radius: 10px;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border: 1px solid var(--border-bright);
+    transition: all 0.25s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--emerald);
+    color: var(--emerald);
+    transform: translateY(-2px);
+  }
+
+  .cta-btns {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 3rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--emerald);
+    letter-spacing: 0.08em;
+  }
+
+  .footer-copy {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border-bright), transparent);
+    margin: 0;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(60px) translateY(-50%); }
+    to { opacity: 1; transform: translateX(0) translateY(-50%); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  @keyframes scrollLine {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.15); opacity: 0.4; }
+  }
+
+  @keyframes barGrow {
+    from { transform: scaleY(0); transform-origin: bottom; }
+    to { transform: scaleY(1); transform-origin: bottom; }
+  }
+
+  .chart-bar { animation: barGrow 0.8s ease-out forwards; }
+  .chart-bar:nth-child(1) { animation-delay: 0.1s; }
+  .chart-bar:nth-child(2) { animation-delay: 0.2s; }
+  .chart-bar:nth-child(3) { animation-delay: 0.3s; }
+  .chart-bar:nth-child(4) { animation-delay: 0.4s; }
+  .chart-bar:nth-child(5) { animation-delay: 0.5s; }
+  .chart-bar:nth-child(6) { animation-delay: 0.6s; }
+  .chart-bar:nth-child(7) { animation-delay: 0.7s; }
+  .chart-bar:nth-child(8) { animation-delay: 0.8s; }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero-visual { display: none; }
+    .overview-grid, .security-grid { grid-template-columns: 1fr; }
+    .modules-grid { grid-template-columns: 1fr 1fr; }
+    .video-grid { grid-template-columns: 1fr; }
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .container { padding: 0 1.5rem; }
+    .hero { padding: 7rem 1.5rem 4rem; }
+    .arch-spread { grid-template-columns: repeat(2, 1fr); }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">PETER MWANIA</div>
+  <ul class="nav-links">
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#modules">Modules</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#security">Security</a></li>
+    <li><a href="#timeline">Timeline</a></li>
+    <li><a href="mailto:pitmwania@gmail.com" class="nav-cta">Hire Me</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
+
+  <div class="hero-tag">
+    <span class="hero-tag-dot"></span>
+    Case Study — Enterprise LMS
+  </div>
+
+  <h1 class="hero-title">
+    <em>HYSSOP</em>
+    <span class="hero-title-line2">LMS</span>
+  </h1>
+
+  <p class="hero-sub">
+    An enterprise-grade Loan Management System built for the East African financial market — modular, auditable, and production-hardened from day one.
+  </p>
+
+  <div class="hero-stats">
+    <div>
+      <div class="hero-stat-val">8+</div>
+      <div class="hero-stat-label">Core Modules</div>
+    </div>
+    
+    <div>
+      <div class="hero-stat-val">8–9W</div>
+      <div class="hero-stat-label">Delivery Timeline</div>
+    </div>
+  </div>
+
+  <!-- Dashboard Mockup -->
+  <div class="hero-visual">
+    <div class="dashboard-frame">
+      <div class="dashboard-bar">
+        <span class="dot dot-r"></span>
+        <span class="dot dot-y"></span>
+        <span class="dot dot-g"></span>
+        <span class="dashboard-url">hyssop.eadatahandlers.co.ke/dashboard</span>
+      </div>
+      <div class="dashboard-body">
+        <div class="dash-sidebar">
+          <div class="dash-logo">HYSSOP</div>
+          <div class="dash-menu-item active">
+            <svg class="dash-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            Dashboard
+          </div>
+          <div class="dash-menu-item">
+            <svg class="dash-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            Investors
+          </div>
+          <div class="dash-menu-item">
+            <svg class="dash-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            Loans
+          </div>
+          <div class="dash-menu-item">
+            <svg class="dash-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            Repayments
+          </div>
+          <div class="dash-menu-item">
+            <svg class="dash-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Reports
+          </div>
+          <div class="dash-menu-item">
+            <svg class="dash-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            CRB / Audit
+          </div>
+        </div>
+        <div class="dash-main">
+          <div class="dash-kpis">
+            <div class="dash-kpi">
+              <div class="dash-kpi-label">Active Loans</div>
+              <div class="dash-kpi-val">1,284</div>
+              <div class="dash-kpi-delta">▲ 12% MTD</div>
+            </div>
+            <div class="dash-kpi">
+              <div class="dash-kpi-label">Portfolio (KES)</div>
+              <div class="dash-kpi-val">48.2M</div>
+              <div class="dash-kpi-delta">▲ 8% MTD</div>
+            </div>
+            <div class="dash-kpi">
+              <div class="dash-kpi-label">Repayment Rate</div>
+              <div class="dash-kpi-val">94.7%</div>
+              <div class="dash-kpi-delta">▲ 2.1% WoW</div>
+            </div>
+          </div>
+          <div class="dash-chart-area">
+            <div class="dash-chart-title">Monthly Disbursements (KES Millions)</div>
+            <div class="chart-bars">
+              <div class="chart-bar" style="height:45%"></div>
+              <div class="chart-bar" style="height:60%"></div>
+              <div class="chart-bar" style="height:40%"></div>
+              <div class="chart-bar" style="height:75%"></div>
+              <div class="chart-bar" style="height:55%"></div>
+              <div class="chart-bar" style="height:80%"></div>
+              <div class="chart-bar highlight" style="height:95%"></div>
+              <div class="chart-bar" style="height:70%"></div>
+            </div>
+          </div>
+          <div class="dash-table">
+            <div class="dash-table-header">
+              <span>Borrower</span>
+              <span>Amount</span>
+              <span>Status</span>
+              <span>Due</span>
+            </div>
+            <div class="dash-table-row">
+              <span>Jane Wanjiku</span>
+              <span>KES 85,000</span>
+              <span><span class="status-pill status-active">Active</span></span>
+              <span>Jun 14</span>
+            </div>
+            <div class="dash-table-row">
+              <span>David Ochieng</span>
+              <span>KES 150,000</span>
+              <span><span class="status-pill status-pending">Pending</span></span>
+              <span>Jun 20</span>
+            </div>
+            <div class="dash-table-row">
+              <span>Grace Muthoni</span>
+              <span>KES 60,000</span>
+              <span><span class="status-pill status-review">Review</span></span>
+              <span>Jul 01</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- OVERVIEW -->
+<section id="overview" class="section-pad">
+  <div class="container">
+    <div class="overview-grid">
+      <div class="reveal">
+        <div class="section-tag">Project Overview</div>
+        <h2 class="section-title">Built for East African Finance</h2>
+        <p class="section-body">
+          Hyssop LMS is a comprehensive loan management platform engineered for the East African financial landscape. It handles the full loan lifecycle — from investor fund management through loan origination, CRB credit checks, disbursement, collateral tracking, and repayment — all within a secure, auditable, and event-driven architecture.
+        </p>
+        <br/>
+        <p class="section-body">
+          Designed as a modular monolith following Domain-Driven Design principles, every financial transaction is immutable, every mutation is audit-logged, and the entire system is built to scale toward microservices without architectural debt.
+        </p>
+        <br/>
+        <div class="stack-grid" style="margin-top: 1.5rem;">
+          <span class="stack-badge"><span class="stack-badge-dot"></span>Next.js 15</span>
+          <span class="stack-badge"><span class="stack-badge-dot"></span>Laravel PHP 8.x</span>
+          <span class="stack-badge"><span class="stack-badge-dot"></span>PostgreSQL</span>
+          <span class="stack-badge"><span class="stack-badge-dot"></span>Redis</span>
+          <span class="stack-badge"><span class="stack-badge-dot"></span>JWT / OAuth2</span>
+          <span class="stack-badge"><span class="stack-badge-dot"></span>CRB API</span>
+          <span class="stack-badge"><span class="stack-badge-dot"></span>SMS / Email</span>
+          <span class="stack-badge"><span class="stack-badge-dot"></span>Docker</span>
+        </div>
+      </div>
+      <div class="reveal overview-image-wrap">
+        <!-- Replace src with actual screenshot -->
+        <div class="img-placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="3" y="3" width="18" height="18" rx="2"/>
+            <circle cx="8.5" cy="8.5" r="1.5"/>
+            <polyline points="21 15 16 10 5 21"/>
+          </svg>
+          <span>Dashboard Screenshot</span>
+          <span style="font-size:0.7rem; color: var(--muted); text-align:center; padding: 0 2rem;">Replace with actual app screenshot at <br/><code style="color:var(--emerald)">hyssop.eadatahandlers.co.ke</code></span>
+        </div>
+        <div class="overview-badge">KES 600,000 PROJECT</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- HERO VIDEO -->
+<section class="video-section section-pad" id="demo">
+  <div class="container">
+    <div class="section-tag reveal">Product Demo</div>
+    <h2 class="section-title reveal">See It In Action</h2>
+    <p class="section-body reveal" style="margin-bottom: 3rem;">
+      Watch a complete walkthrough of the Hyssop LMS — from investor onboarding and loan origination to CRB checks and automated repayment tracking.
+    </p>
+
+    <div class="video-wrap reveal">
+      <!-- OPTION A: Embed a YouTube video -->
+      <!-- <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe> -->
+
+      <!-- OPTION B: Self-hosted video -->
+      <!-- <video controls poster="hyssop-demo-thumb.jpg">
+        <source src="hyssop-demo.mp4" type="video/mp4" />
+      </video> -->
+
+      <!-- PLACEHOLDER — remove when video is ready -->
+      <div class="video-placeholder" onclick="alert('Replace this placeholder with your YouTube embed or video file.')">
+        <div class="video-glow"></div>
+        <div class="play-btn">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </div>
+        <div class="video-label">Full Platform Demo</div>
+        <div class="video-sublabel">Loan lifecycle · Investor dashboard · CRB integration</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SHORT VIDEO CLIPS -->
+<section class="section-pad">
+  <div class="container">
+    <div class="section-tag reveal">Feature Walkthroughs</div>
+    <h2 class="section-title reveal">Module Demos</h2>
+    <p class="section-body reveal" style="margin-bottom: 3rem;">Short feature-level recordings of each key module in the platform.</p>
+
+    <div class="video-grid">
+      <!-- Each video-thumb can be replaced with an actual <video> or <iframe> -->
+      <div class="video-thumb reveal" onclick="alert('Replace with loan module demo video or iframe.')">
+        <div class="img-placeholder" style="border-radius:0; aspect-ratio:16/9; position:absolute; inset:0; height:100%; width:100%; background: linear-gradient(135deg, #081320, #0d1e30);">
+          <svg style="width:36px;height:36px;stroke:var(--emerald);opacity:0.2;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="video-thumb-overlay">
+          <div class="video-thumb-play">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div class="video-thumb-title">Loan Origination Flow</div>
+          <div class="video-thumb-duration">≈ 3 min</div>
+        </div>
+      </div>
+
+      <div class="video-thumb reveal" onclick="alert('Replace with investor dashboard demo video or iframe.')">
+        <div class="img-placeholder" style="border-radius:0; aspect-ratio:16/9; position:absolute; inset:0; height:100%; width:100%; background: linear-gradient(135deg, #0a1a10, #0d2018);">
+          <svg style="width:36px;height:36px;stroke:var(--emerald);opacity:0.2;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+        </div>
+        <div class="video-thumb-overlay">
+          <div class="video-thumb-play">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div class="video-thumb-title">Investor Dashboard</div>
+          <div class="video-thumb-duration">≈ 2 min</div>
+        </div>
+      </div>
+
+      <div class="video-thumb reveal" onclick="alert('Replace with CRB integration demo video or iframe.')">
+        <div class="img-placeholder" style="border-radius:0; aspect-ratio:16/9; position:absolute; inset:0; height:100%; width:100%; background: linear-gradient(135deg, #1a100a, #200f0d);">
+          <svg style="width:36px;height:36px;stroke:var(--gold);opacity:0.2;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="video-thumb-overlay">
+          <div class="video-thumb-play">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div class="video-thumb-title">CRB Credit Check</div>
+          <div class="video-thumb-duration">≈ 2 min</div>
+        </div>
+      </div>
+
+      <div class="video-thumb reveal" onclick="alert('Replace with reporting demo video or iframe.')">
+        <div class="img-placeholder" style="border-radius:0; aspect-ratio:16/9; position:absolute; inset:0; height:100%; width:100%; background: linear-gradient(135deg, #0a0a1a, #0d0d25);">
+          <svg style="width:36px;height:36px;stroke:#a5b4fc;opacity:0.2;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div class="video-thumb-overlay">
+          <div class="video-thumb-play">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </div>
+          <div class="video-thumb-title">Reports & Analytics</div>
+          <div class="video-thumb-duration">≈ 2.5 min</div>
+        </div>
+      </div>
+    </div>
+
+    <p style="text-align:center; margin-top: 2rem; font-size: 0.78rem; color: var(--muted); font-family: var(--font-mono);">
+      💡 Replace each video-thumb block with <code style="color:var(--emerald)">&lt;video&gt;</code> or <code style="color:var(--emerald)">&lt;iframe&gt;</code> when recordings are ready.
+    </p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MODULES -->
+<section id="modules" class="section-pad">
+  <div class="container">
+    <div class="section-tag reveal">Core Modules</div>
+    <h2 class="section-title reveal">Everything Built In</h2>
+    <p class="section-body reveal" style="margin-bottom: 3rem;">Eight production-ready modules covering the complete loan lifecycle — from investor capital through final clearance.</p>
+
+    <div class="modules-grid">
+      <div class="module-card reveal">
+        <div class="module-icon">💰</div>
+        <div class="module-title">INVESTOR FUNDS</div>
+        <div class="module-desc">Track capital contributions, calculate returns, manage withdrawals, and generate automated investor reports with real-time portfolio visibility.</div>
+        <div class="module-flow">
+          <span class="flow-step">Deposit</span>
+          <span class="flow-step">→ Investment</span>
+          <span class="flow-step">→ Loan</span>
+          <span class="flow-step">→ Returns</span>
+          <span class="flow-step">→ Withdrawal</span>
+        </div>
+      </div>
+
+      <div class="module-card reveal">
+        <div class="module-icon">📋</div>
+        <div class="module-title">LOAN ORIGINATION</div>
+        <div class="module-desc">Full loan application, multi-step approval workflow, and disbursement management with role-based authorization and full audit trail.</div>
+        <div class="module-flow">
+          <span class="flow-step">Apply</span>
+          <span class="flow-step">→ Review</span>
+          <span class="flow-step">→ Approve</span>
+          <span class="flow-step">→ Disburse</span>
+        </div>
+      </div>
+
+      <div class="module-card reveal">
+        <div class="module-icon">🏠</div>
+        <div class="module-title">COLLATERAL</div>
+        <div class="module-desc">Register and track physical or financial collateral linked to loans. Includes admin verification, valuation recording, and automated status alerts.</div>
+        <div class="module-flow">
+          <span class="flow-step">Submit</span>
+          <span class="flow-step">→ Verify</span>
+          <span class="flow-step">→ Valuate</span>
+          <span class="flow-step">→ Link to Loan</span>
+        </div>
+      </div>
+
+      <div class="module-card reveal">
+        <div class="module-icon">⚡</div>
+        <div class="module-title">REPAYMENT ENGINE</div>
+        <div class="module-desc">Monitors payments in real-time, calculates principal and interest components, tracks outstanding balances, and handles partial payments and overdue scenarios.</div>
+        <div class="module-flow">
+          <span class="flow-step">Schedule</span>
+          <span class="flow-step">→ Collect</span>
+          <span class="flow-step">→ Allocate</span>
+          <span class="flow-step">→ Reconcile</span>
+        </div>
+      </div>
+
+      <div class="module-card reveal">
+        <div class="module-icon">🛡️</div>
+        <div class="module-title">CRB INTEGRATION</div>
+        <div class="module-desc">Live integration with Kenya's Credit Reference Bureau APIs. Automated credit score checks before loan approval, with full response logging and compliance records.</div>
+        <div class="module-flow">
+          <span class="flow-step">Request</span>
+          <span class="flow-step">→ CRB API</span>
+          <span class="flow-step">→ Score</span>
+          <span class="flow-step">→ Decision</span>
+        </div>
+      </div>
+
+      <div class="module-card reveal">
+        <div class="module-icon">📊</div>
+        <div class="module-title">REPORTING & ANALYTICS</div>
+        <div class="module-desc">Role-specific dashboards for admin, investors, and borrowers. Real-time financial metrics, default rate tracking, ROI calculations, and exportable reports.</div>
+        <div class="module-flow">
+          <span class="flow-step">Aggregate</span>
+          <span class="flow-step">→ Visualize</span>
+          <span class="flow-step">→ Export</span>
+        </div>
+      </div>
+
+      <div class="module-card reveal">
+        <div class="module-icon">🔔</div>
+        <div class="module-title">ALERTS & NOTIFICATIONS</div>
+        <div class="module-desc">Event-driven SMS and email notifications powered by Redis queues. Automated alerts for approvals, due payments, overdue loans, and suspicious activity.</div>
+        <div class="module-flow">
+          <span class="flow-step">Event</span>
+          <span class="flow-step">→ Queue</span>
+          <span class="flow-step">→ SMS/Email</span>
+        </div>
+      </div>
+
+      <div class="module-card reveal">
+        <div class="module-icon">📜</div>
+        <div class="module-title">CLEARANCE CERTIFICATES</div>
+        <div class="module-desc">Automated generation of loan clearance certificates upon full repayment. Digitally signed, timestamped, and stored in the immutable audit log.</div>
+        <div class="module-flow">
+          <span class="flow-step">Repaid</span>
+          <span class="flow-step">→ Verify</span>
+          <span class="flow-step">→ Generate</span>
+          <span class="flow-step">→ Deliver</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ARCHITECTURE -->
+<section id="architecture" class="section-pad">
+  <div class="container">
+    <div class="section-tag reveal">System Design</div>
+    <h2 class="section-title reveal">Architecture Blueprint</h2>
+    <p class="section-body reveal" style="margin-bottom: 3rem;">
+      A modular monolith following Domain-Driven Design — built to extract into microservices without rewriting. Every financial mutation flows through a single atomic DB transaction before emitting events.
+    </p>
+
+    <div class="arch-diagram reveal">
+      <div class="arch-flow">
+        <div class="arch-layer">
+          <div class="arch-node primary">
+            <div class="arch-node-title">Next.js Frontend</div>
+            <div class="arch-node-sub">Investor / Borrower Portal</div>
+          </div>
+        </div>
+        <div class="arch-connector"></div>
+        <div class="arch-layer">
+          <div class="arch-node">
+            <div class="arch-node-title">API Gateway</div>
+            <div class="arch-node-sub">Rate Limiting · WAF · JWT Auth</div>
+          </div>
+        </div>
+        <div class="arch-connector"></div>
+        <div class="arch-layer">
+          <div class="arch-node primary" style="min-width: 240px;">
+            <div class="arch-node-title">Laravel Core API</div>
+            <div class="arch-node-sub">Modular Monolith (DDD)</div>
+          </div>
+        </div>
+        <div class="arch-connector"></div>
+        <div class="arch-spread">
+          <div class="arch-node">
+            <div class="arch-node-title">Loan Module</div>
+            <div class="arch-node-sub">Origination · Approval</div>
+          </div>
+          <div class="arch-node">
+            <div class="arch-node-title">Investor Module</div>
+            <div class="arch-node-sub">Funds · Returns</div>
+          </div>
+          <div class="arch-node">
+            <div class="arch-node-title">Borrower Module</div>
+            <div class="arch-node-sub">Profile · History</div>
+          </div>
+          <div class="arch-node">
+            <div class="arch-node-title">Ledger Module</div>
+            <div class="arch-node-sub">Immutable Debit/Credit</div>
+          </div>
+        </div>
+        <div class="arch-connector"></div>
+        <div class="arch-layer">
+          <div class="arch-node primary" style="min-width: 220px;">
+            <div class="arch-node-title">PostgreSQL</div>
+            <div class="arch-node-sub">ACID · Transactions · Row-Level Lock</div>
+          </div>
+        </div>
+        <div class="arch-connector"></div>
+        <div class="arch-layer">
+          <div class="arch-node">
+            <div class="arch-node-title">Redis Event Bus</div>
+            <div class="arch-node-sub">Async Queue</div>
+          </div>
+        </div>
+        <div class="arch-connector"></div>
+        <div class="arch-spread">
+          <div class="arch-node">
+            <div class="arch-node-title">Notifications</div>
+            <div class="arch-node-sub">SMS · Email</div>
+          </div>
+          <div class="arch-node">
+            <div class="arch-node-title">CRB Sync</div>
+            <div class="arch-node-sub">Credit Bureau API</div>
+          </div>
+          <div class="arch-node">
+            <div class="arch-node-title">Reporting</div>
+            <div class="arch-node-sub">Read Models · Aggregates</div>
+          </div>
+          <div class="arch-node">
+            <div class="arch-node-title">Risk Engine</div>
+            <div class="arch-node-sub">Fraud Rules</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SECURITY -->
+<section id="security" class="section-pad">
+  <div class="container">
+    <div class="security-grid">
+      <div>
+        <div class="section-tag reveal">Security & Compliance</div>
+        <h2 class="section-title reveal">Production Hardened</h2>
+        <p class="section-body reveal" style="margin-bottom: 2.5rem;">Every layer secured. Every mutation logged. Built to meet financial institution standards from day one.</p>
+        <div class="security-list">
+          <div class="security-item reveal">
+            <div class="security-item-icon">🔐</div>
+            <div>
+              <div class="security-item-title">Role-Based Access Control</div>
+              <div class="security-item-desc">Separate permissions for Admin, Loan Officer, Investor, Borrower, and Auditor. Zero privilege creep.</div>
+            </div>
+          </div>
+          <div class="security-item reveal">
+            <div class="security-item-icon">🔒</div>
+            <div>
+              <div class="security-item-title">Data Encryption</div>
+              <div class="security-item-desc">Encryption at rest for sensitive fields (IDs, balances). HTTPS/TLS in transit. Bcrypt/Argon2 password hashing.</div>
+            </div>
+          </div>
+          <div class="security-item reveal">
+            <div class="security-item-icon">📋</div>
+            <div>
+              <div class="security-item-title">Immutable Audit Logs</div>
+              <div class="security-item-desc">Every financial mutation writes an append-only audit record. Before/after state captured in JSONB with IP and timestamp.</div>
+            </div>
+          </div>
+          <div class="security-item reveal">
+            <div class="security-item-icon">🛡️</div>
+            <div>
+              <div class="security-item-title">API Security</div>
+              <div class="security-item-desc">OAuth2/JWT authentication, input validation, rate limiting, WAF at the gateway layer. Regulatory-compliant endpoints.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="security-visual reveal">
+        <div class="code-line code-comment">// Security Request Flow</div>
+        <br/>
+        <div class="code-line"><span class="code-key">incoming_request</span></div>
+        <div class="code-line" style="padding-left:1rem;">→ <span class="code-val">JWT Authentication</span></div>
+        <div class="code-line" style="padding-left:2rem;">→ <span class="code-val">RBAC Policy Check</span></div>
+        <div class="code-line" style="padding-left:3rem;">→ <span class="code-val">Input Validation</span></div>
+        <div class="code-line" style="padding-left:4rem;">→ <span class="code-val">DB Transaction</span></div>
+        <div class="code-line" style="padding-left:5rem;">→ <span class="code-val">Audit Log Entry</span></div>
+        <div class="code-line" style="padding-left:6rem;">→ <span class="code-val">Response</span></div>
+        <br/>
+        <div class="code-line code-comment">// Ledger Rules</div>
+        <div class="code-line"><span class="code-key">ledger_entries</span> {</div>
+        <div class="code-line" style="padding-left:1rem;"><span class="code-key">debit</span>: <span class="code-num">NUMERIC(18,2)</span> <span class="code-comment">≥ 0</span></div>
+        <div class="code-line" style="padding-left:1rem;"><span class="code-key">credit</span>: <span class="code-num">NUMERIC(18,2)</span> <span class="code-comment">≥ 0</span></div>
+        <div class="code-line" style="padding-left:1rem;"><span class="code-key">policy</span>: <span class="code-str">"INSERT ONLY"</span></div>
+        <div class="code-line" style="padding-left:1rem;"><span class="code-key">rls</span>: <span class="code-val">ENABLED</span></div>
+        <div class="code-line">}</div>
+        <br/>
+        <div class="code-line code-comment">// Postgres Hardening</div>
+        <div class="code-line"><span class="code-key">ROW_LEVEL_SECURITY</span>: <span class="code-val">ON</span></div>
+        <div class="code-line"><span class="code-key">CHECK</span>(debit &gt;= <span class="code-num">0</span>)</div>
+        <div class="code-line"><span class="code-key">CHECK</span>(credit &gt;= <span class="code-num">0</span>)</div>
+        <div class="code-line"><span class="code-key">INDEXES</span>: loan_status, borrower_id, account_id</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- TIMELINE -->
+<section id="timeline" class="section-pad">
+  <div class="container">
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;">
+      <div>
+        <div class="section-tag reveal">Delivery Plan</div>
+        <h2 class="section-title reveal">8–9 Week Build</h2>
+        <p class="section-body reveal" style="margin-bottom: 3rem;">Structured in four phases from requirements lock to containerized production deployment.</p>
+        <div class="timeline reveal">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-phase">Phase 01</div>
+            <div class="timeline-title">REQUIREMENTS & PLANNING</div>
+            <div class="timeline-desc">Detailed workflow documentation, database schema design, security architecture plan, and module interface contracts.</div>
+            <span class="timeline-dur">1 week</span>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-phase">Phase 02</div>
+            <div class="timeline-title">MODULE DEVELOPMENT</div>
+            <div class="timeline-desc">All eight core modules: Investor, Borrower, Loan, Collateral, Repayment Engine, CRB, Notifications, and Clearance Certificates.</div>
+            <span class="timeline-dur">4–5 weeks</span>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="timeline-phase">Phase 03</div>
+            <div class="timeline-title">INTEGRATION & TESTING</div>
+            <div class="timeline-desc">Unit tests, integration tests, end-to-end financial flow validation, CRB API testing, and security penetration review.</div>
+            <span class="timeline-dur">2 weeks</span>
+          </div>
+          <div class="timeline-item" style="padding-bottom:0">
+            <div class="timeline-dot"></div>
+            <div class="timeline-phase">Phase 04</div>
+            <div class="timeline-title">DEPLOYMENT & TRAINING</div>
+            <div class="timeline-desc">Containerized Docker deployment, CI/CD pipeline, admin training sessions, and full end-user documentation.</div>
+            <span class="timeline-dur">1 week</span>
+          </div>
+        </div>
+      </div>
+
+      
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CTA -->
+<section class="cta-section section-pad">
+  <div class="cta-glow"></div>
+  <div class="container" style="position:relative; z-index:1;">
+    <div class="section-tag reveal" style="justify-content:center;">Let's Build</div>
+    <h2 class="cta-title reveal">READY TO<br/><em style="color:var(--emerald);">GET STARTED?</em></h2>
+    <p class="cta-sub reveal">Have a financial system that needs to be built right? Let's talk about your requirements and how Hyssop LMS can be adapted for your institution.</p>
+    <div class="cta-btns reveal">
+      <a href="mailto:pitmwania@gmail.com" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Get In Touch
+      </a>
+      <a href="tel:+254790172251" class="btn-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.77 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17z"/></svg>
+        +254 790 172 251
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">HYSSOP LMS</div>
+  <div class="footer-copy">Built by Peter Mwania Mwendwa · pitmwania@gmail.com · +254 790 172 251</div>
+  <div class="footer-copy" style="color: var(--muted);">East Africa Data Handlers © 2025</div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Nav scroll effect
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 80
+      ? 'rgba(8,12,16,0.95)'
+      : 'rgba(8,12,16,0.7)';
+  });
+</script>
+</body>
+</html>
